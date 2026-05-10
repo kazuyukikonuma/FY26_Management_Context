@@ -1,0 +1,2686 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FY25 経営コンテキスト大全｜ベネッセ台北支社</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F0E8;
+  --bg-sidebar:#EDE8DF;
+  --bg-card:#FFFDF9;
+  --bg-hover:#E4DFD6;
+  --bg-active:#D9D3C8;
+  --text-primary:#1A1916;
+  --text-secondary:#6B6860;
+  --text-muted:#9B9890;
+  --text-sidebar:#4A4740;
+  --text-sidebar-active:#1A1916;
+  --text-sidebar-muted:#9B9890;
+  --border:#DDD8CE;
+  --border-sidebar:#D0CBC0;
+  --accent-orange:#CF6A2E;
+  --accent-blue:#2A6496;
+  --accent-green:#2D6A4F;
+  --accent-yellow:#7A5C00;
+  --accent-red:#8B2E2E;
+  --accent-purple:#5E4B8B;
+  --sidebar-w:240px;
+}
+
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text-primary);font-size:13px;line-height:1.65;min-height:100vh}
+.layout{display:flex;min-height:100vh}
+
+/* ── サイドバー ── */
+.sidebar{
+  width:var(--sidebar-w);flex-shrink:0;background:var(--bg-sidebar);
+  position:fixed;top:0;left:0;height:100vh;overflow-y:auto;
+  padding-bottom:40px;border-right:1px solid var(--border-sidebar);
+  scrollbar-width:thin;scrollbar-color:#C8C2B8 transparent;
+}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:#C8C2B8;border-radius:2px}
+
+.sidebar-logo{padding:18px 16px 14px;border-bottom:1px solid var(--border-sidebar)}
+.sidebar-logo-title{font-size:12px;font-weight:600;color:var(--text-sidebar-active);letter-spacing:.01em}
+.sidebar-logo-sub{font-size:10px;color:var(--text-sidebar-muted);margin-top:2px;font-family:'Geist Mono',monospace}
+
+.group-label{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--text-sidebar-muted);padding:18px 16px 6px;text-transform:uppercase}
+.group-label.with-bar{display:flex;align-items:center;gap:6px}
+.group-label .gbar{width:14px;height:2px;background:var(--accent-orange);border-radius:1px}
+.group-label.gbar-blue .gbar{background:var(--accent-blue)}
+.group-label.gbar-green .gbar{background:var(--accent-green)}
+.group-label.gbar-purple .gbar{background:var(--accent-purple)}
+.group-label.gbar-red .gbar{background:var(--accent-red)}
+.group-label.gbar-yellow .gbar{background:var(--accent-yellow)}
+
+.nav-item{
+  display:flex;align-items:center;gap:8px;padding:6px 16px;cursor:pointer;
+  font-size:11.5px;color:var(--text-sidebar);transition:background .12s,color .12s;
+  line-height:1.4;margin:1px 6px;border-radius:6px;
+}
+.nav-item:hover{background:var(--bg-active);color:var(--text-sidebar-active)}
+.nav-item.active{background:var(--bg-active);color:var(--text-sidebar-active);font-weight:500}
+.nav-item .nav-id{font-family:'Geist Mono',monospace;font-size:9.5px;color:var(--text-sidebar-muted);flex-shrink:0;min-width:32px}
+.nav-item.active .nav-id{color:#C8B89A}
+.nav-item .nav-title{flex:1;font-size:11.5px}
+.nav-item.sub{padding-left:30px;font-size:11px;opacity:.92}
+
+/* ── メイン ── */
+.main{margin-left:var(--sidebar-w);flex:1;padding:36px 48px 80px;max-width:980px}
+.page-header{margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.page-title{font-size:20px;font-weight:600;color:var(--text-primary);letter-spacing:-.01em;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.page-title-badge{font-family:'Geist Mono',monospace;font-size:10px;font-weight:400;color:var(--text-muted);background:var(--bg-hover);padding:2px 8px;border-radius:4px}
+.page-meta{font-size:11px;color:var(--text-muted);margin-top:6px}
+
+/* ── ページ切替 ── */
+.page-content{display:none}
+.page-content.active{display:block}
+
+/* ── KPI（参考画像準拠・白カード+左バー）── */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
+.kpi-grid.three{grid-template-columns:repeat(3,1fr)}
+.kpi-grid.two{grid-template-columns:repeat(2,1fr)}
+.kpi{
+  position:relative;
+  background:#FFFFFF;
+  border:1px solid #E5E5EA;
+  border-radius:10px;
+  padding:18px 22px 18px 26px;
+  transition:transform .15s,box-shadow .15s;
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.kpi::before{
+  content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;
+  background:#3B82F6;
+  border-radius:0 3px 3px 0;
+}
+.kpi:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(0,0,0,.06);
+}
+.kpi-label{
+  font-size:11px;color:#9B9890;
+  margin-bottom:10px;letter-spacing:.04em;font-weight:500;
+  text-transform:uppercase;
+}
+.kpi-val{
+  font-family:'Geist Mono',monospace;
+  font-size:32px;font-weight:700;
+  color:#0F172A;line-height:1;
+  letter-spacing:-.025em;
+  display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;
+}
+.kpi-val .unit{
+  font-size:13px;font-weight:500;color:#9B9890;
+  letter-spacing:0;
+}
+.kpi-sub{
+  font-size:11px;color:#9B9890;
+  margin-top:10px;
+  line-height:1.4;font-weight:500;
+}
+/* status: 全カード左バー青で統一 */
+.kpi.accent::before,.kpi.warn::before,.kpi.danger::before,.kpi.good::before{background:#3B82F6}
+
+/* コールアウト用 .good .danger .info .alert がKPIに干渉するのを防ぐ */
+.kpi.good, .kpi.danger, .kpi.info, .kpi.warn, .kpi.accent{
+  background:#FFFFFF !important;
+  border:1px solid #E5E5EA !important;
+  border-left:1px solid #E5E5EA !important;
+  padding:18px 22px 18px 26px !important;
+  border-radius:10px !important;
+  color:#0F172A !important;
+  margin:0 !important;
+  font-size:inherit !important;
+  line-height:inherit !important;
+}
+
+/* ── セクション ── */
+.section{margin-bottom:32px}
+.section-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.section-num{font-family:'Geist Mono',monospace;font-size:9.5px;background:var(--text-primary);color:#fff;padding:2px 7px;border-radius:4px;letter-spacing:.02em}
+.section-title{font-size:13.5px;font-weight:600;letter-spacing:-.01em;color:var(--text-primary)}
+.section-note{font-size:10.5px;color:var(--text-muted);margin-left:auto}
+
+/* ── 4分類カラーリング ── */
+.section-num.idea{background:var(--accent-orange)}
+.section-num.real{background:var(--accent-blue)}
+.section-num.gap{background:var(--accent-yellow);color:#fff}
+.section-num.mission{background:var(--accent-green)}
+
+/* ── テーブル ── */
+table{width:100%;border-collapse:collapse;font-size:11.5px;margin-bottom:12px;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+th{font-size:10px;font-weight:600;color:var(--text-muted);text-align:left;padding:7px 10px;border-bottom:1px solid var(--border);letter-spacing:.05em;white-space:nowrap;background:var(--bg)}
+th.r{text-align:right}
+td{padding:7px 10px;border-bottom:1px solid var(--bg-hover);font-size:11.5px;color:var(--text-primary);vertical-align:top;background:var(--bg-card)}
+td.r{text-align:right;font-family:'Geist Mono',monospace}
+td.muted{color:var(--text-muted)}
+td.neg{color:var(--accent-red);text-align:right;font-family:'Geist Mono',monospace}
+td.pos{color:var(--accent-green);text-align:right;font-family:'Geist Mono',monospace}
+td.name{font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr.group-header td{background:var(--bg);font-weight:600;font-size:10px;color:var(--text-muted);letter-spacing:.05em;padding:6px 10px 4px;border-bottom:none}
+tr.subtotal td{background:var(--bg);font-weight:600;border-top:1px solid var(--border)}
+tr.total td{background:var(--text-primary);color:#fff;font-weight:600}
+tr.warn-row td{background:#FFF8ED}
+
+/* ── バッジ ── */
+.badge{font-size:10px;padding:2px 7px;border-radius:4px;display:inline-block;font-weight:500;white-space:nowrap}
+.badge-warn{color:var(--accent-yellow);background:#FFF8ED;border:1px solid #E8C97A}
+.badge-good{color:var(--accent-green);background:#EAF6EE;border:1px solid #A8D8BC}
+.badge-info{color:var(--accent-blue);background:#EBF3FB;border:1px solid #B8D4ED}
+.badge-danger{color:var(--accent-red);background:#FBEEEE;border:1px solid #E0B0B0}
+.badge-mute{color:var(--text-muted);background:var(--bg-hover);border:1px solid var(--border)}
+.status-red{color:var(--accent-red);font-weight:600}
+.status-yellow{color:var(--accent-yellow);font-weight:600}
+.status-green{color:var(--accent-green);font-weight:600}
+
+/* ── 課題リスト ── */
+.issue-list{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.issue-item{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border-bottom:1px solid var(--bg-hover);font-size:11.5px}
+.issue-item:last-child{border-bottom:none}
+.issue-tag{font-family:'Geist Mono',monospace;font-size:9.5px;padding:2px 7px;border-radius:4px;flex-shrink:0;white-space:nowrap;margin-top:2px;font-weight:500;letter-spacing:.02em}
+.tag-data{background:#EBF3FB;color:#1F5A8A;border:1px solid #B8D4ED}
+.tag-quality{background:#FEF9E7;color:#7A5C00;border:1px solid #E8D98A}
+.tag-design{background:#EAF6EE;color:#1F5C3A;border:1px solid #A8D8BC}
+.tag-exec{background:#FAECE7;color:#7A2E10;border:1px solid #E8B8A0}
+.tag-value{background:#F0EDFE;color:#3C2E8A;border:1px solid #C0B4F0}
+.tag-risk{background:#FBEEEE;color:#8B2E2E;border:1px solid #E0B0B0}
+.issue-body{flex:1;color:var(--text-secondary);line-height:1.65}
+.issue-body strong{color:var(--text-primary)}
+
+/* ── 4セット（理想/現状/GAP/ミッション）── */
+.frame-block{display:grid;grid-template-columns:80px 1fr;gap:14px;padding:14px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;margin-bottom:10px}
+.frame-label{font-size:10px;font-weight:700;letter-spacing:.08em;color:#fff;background:var(--text-primary);padding:4px 9px;border-radius:4px;text-align:center;align-self:flex-start;line-height:1.3}
+.frame-label.idea{background:var(--accent-orange)}
+.frame-label.real{background:var(--accent-blue)}
+.frame-label.gap{background:var(--accent-yellow)}
+.frame-label.mission{background:var(--accent-green)}
+.frame-body{font-size:12px;line-height:1.7;color:var(--text-primary)}
+.frame-body strong{color:var(--text-primary)}
+.frame-body p+p{margin-top:6px}
+.frame-body ul{margin:4px 0 0 16px}
+.frame-body li{margin-bottom:3px}
+
+/* ── Alert/Info/Good ── */
+.alert{background:#FEF9E7;border-left:3px solid #C8990A;padding:10px 14px;border-radius:0 6px 6px 0;font-size:11.5px;color:var(--accent-yellow);margin:10px 0;line-height:1.65}
+.info{background:#EBF3FB;border-left:3px solid #2A6496;padding:10px 14px;border-radius:0 6px 6px 0;font-size:11.5px;color:var(--accent-blue);margin:10px 0;line-height:1.65}
+.good{background:#EAF6EE;border-left:3px solid #2D6A4F;padding:10px 14px;border-radius:0 6px 6px 0;font-size:11.5px;color:var(--accent-green);margin:10px 0;line-height:1.65}
+.danger{background:#FBEEEE;border-left:3px solid #8B2E2E;padding:10px 14px;border-radius:0 6px 6px 0;font-size:11.5px;color:var(--accent-red);margin:10px 0;line-height:1.65}
+
+/* ── テキストブロック ── */
+.text-block{font-size:12px;line-height:1.8;color:var(--text-primary);margin-bottom:12px}
+.text-block p+p{margin-top:8px}
+.text-block strong{color:var(--text-primary)}
+.text-block ul{margin:6px 0 8px 18px}
+.text-block li{margin-bottom:4px;line-height:1.7}
+.text-block h4{font-size:12.5px;font-weight:600;margin:12px 0 6px;color:var(--text-primary)}
+
+/* ── グラフ ── */
+.chart-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:14px}
+
+/* ── インラインバー ── */
+.ch-bar{position:relative;display:flex;align-items:center;height:18px;background:#F0EBE2;border-radius:3px;overflow:hidden}
+.ch-bar span{display:block;height:100%;border-radius:3px;transition:width .3s}
+.ch-bar em{position:absolute;right:4px;top:50%;transform:translateY(-50%);font-style:normal;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-primary);font-weight:600;background:rgba(255,253,249,.92);padding:1px 5px;border-radius:2px;line-height:1.2}
+.chart-title{font-size:11.5px;font-weight:600;color:var(--text-primary);margin-bottom:8px}
+.chart-wrap{position:relative;height:280px}
+.chart-wrap.tall{height:380px}
+
+/* ── 4分類グリッド ── */
+.cat4-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.cat4{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:13px 15px}
+.cat4-no{display:inline-block;font-family:'Geist Mono',monospace;font-size:10px;background:var(--text-primary);color:#fff;padding:2px 7px;border-radius:4px;margin-bottom:6px}
+.cat4-title{font-size:13px;font-weight:600;margin-bottom:5px}
+.cat4-body{font-size:11px;color:var(--text-secondary);line-height:1.65}
+.cat4-tag{font-size:10px;color:var(--accent-orange);margin-top:5px;font-weight:500}
+
+/* ── 処カード ── */
+.dept-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.dept-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:13px 15px}
+.dept-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid var(--bg-hover)}
+.dept-name{font-size:13px;font-weight:600;color:var(--text-primary)}
+.dept-count{font-size:11px;color:var(--text-muted);font-family:'Geist Mono',monospace}
+.dept-mission{font-size:11px;color:var(--text-secondary);line-height:1.65;margin-bottom:5px}
+.dept-resource{font-size:10.5px;color:var(--text-muted);line-height:1.6}
+.dept-resource strong{color:var(--text-secondary)}
+
+/* ── 配信タイムライン ── */
+.acts-table{font-size:11px}
+.acts-table .age-bar{display:inline-block;width:40px;height:8px;background:linear-gradient(90deg,var(--accent-orange),var(--accent-yellow));border-radius:4px;vertical-align:middle;margin-right:6px}
+
+/* ── タスクカード ── */
+.task-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:4px;font-size:10px;color:var(--text-muted)}
+.task-meta span{padding:1px 6px;border-radius:3px;background:var(--bg-hover)}
+
+/* ── 数値強調 ── */
+.num{font-family:'Geist Mono',monospace;font-weight:500}
+
+/* ── フッター ── */
+.footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-size:10px;color:var(--text-muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+/* ── スクロールトップヒント ── */
+.toc-hint{font-size:10px;color:var(--text-muted);background:var(--bg-hover);padding:5px 10px;border-radius:4px;display:inline-block;margin-bottom:14px}
+
+/* ── 印刷時 ── */
+@media print{
+  .sidebar{display:none}
+  .main{margin-left:0;max-width:100%}
+  .page-content{display:block!important}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ══════════ サイドバー ══════════ -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-title">📊 FY25 経営コンテキスト大全</div>
+    <div class="sidebar-logo-sub">Benesse Taipei · 2026-05-10</div>
+  </div>
+
+  <div class="group-label with-bar"><span class="gbar"></span>0  OVERVIEW</div>
+  <div class="nav-item active" onclick="showPage('0-01',this)"><span class="nav-id">0-01</span><span class="nav-title">メッセージ（経営幹部へ）</span></div>
+  <div class="nav-item" onclick="showPage('0-02',this)"><span class="nav-id">0-02</span><span class="nav-title">経営サマリー</span></div>
+
+  <div class="group-label with-bar gbar-purple"><span class="gbar"></span>V  経営の根本フレーム</div>
+  <div class="nav-item" onclick="showPage('V-01',this)"><span class="nav-id">V-01</span><span class="nav-title">TBBSと戦略の骨子</span></div>
+  <div class="nav-item" onclick="showPage('V-02',this)"><span class="nav-id">V-02</span><span class="nav-title">グランドデザイン3段階</span></div>
+  <div class="nav-item" onclick="showPage('V-03',this)"><span class="nav-id">V-03</span><span class="nav-title">P=O×N×CV-I</span></div>
+  <div class="nav-item" onclick="showPage('V-04',this)"><span class="nav-id">V-04</span><span class="nav-title">顧客と販売戦略</span></div>
+  <div class="nav-item" onclick="showPage('V-05',this)"><span class="nav-id">V-05</span><span class="nav-title">販売チャネル構造</span></div>
+  <div class="nav-item" onclick="showPage('V-06',this)"><span class="nav-id">V-06</span><span class="nav-title">CSPD（組織行動方針）</span></div>
+
+  <div class="group-label with-bar gbar-blue"><span class="gbar"></span>P  事業の全体像</div>
+  <div class="nav-item" onclick="showPage('P-00',this)"><span class="nav-id">P-00</span><span class="nav-title">物販の4分類</span></div>
+  <div class="nav-item" onclick="showPage('P-01',this)"><span class="nav-id">P-01</span><span class="nav-title">學習商品</span></div>
+  <div class="nav-item" onclick="showPage('P-02',this)"><span class="nav-id">P-02</span><span class="nav-title">舞台劇</span></div>
+  <div class="nav-item" onclick="showPage('P-03',this)"><span class="nav-id">P-03</span><span class="nav-title">授権金/IPライセンス</span></div>
+  <div class="nav-item" onclick="showPage('P-04',this)"><span class="nav-id">P-04</span><span class="nav-title">周邊商品（巧連智統合）</span></div>
+  <div class="nav-item" onclick="showPage('P-05',this)"><span class="nav-id">P-05</span><span class="nav-title">共創SKU</span></div>
+  <div class="nav-item" onclick="showPage('P-06',this)"><span class="nav-id">P-06</span><span class="nav-title">Mirafeel</span></div>
+  <div class="nav-item" onclick="showPage('P-07',this)"><span class="nav-id">P-07</span><span class="nav-title">數位経典・YT</span></div>
+  <div class="nav-item" onclick="showPage('P-08',this)"><span class="nav-id">P-08</span><span class="nav-title">事業別P&L 一覧表</span></div>
+
+  <div class="group-label with-bar gbar-yellow"><span class="gbar"></span>F  費用構造</div>
+  <div class="nav-item" onclick="showPage('F-01',this)"><span class="nav-id">F-01</span><span class="nav-title">全社費用サマリー</span></div>
+  <div class="nav-item" onclick="showPage('F-02',this)"><span class="nav-id">F-02</span><span class="nav-title">営業費用</span></div>
+  <div class="nav-item" onclick="showPage('F-03',this)"><span class="nav-id">F-03</span><span class="nav-title">一般管理費</span></div>
+  <div class="nav-item" onclick="showPage('F-04',this)"><span class="nav-id">F-04</span><span class="nav-title">人件費</span></div>
+  <div class="nav-item" onclick="showPage('F-05',this)"><span class="nav-id">F-05</span><span class="nav-title">物流費（暫定）</span></div>
+
+  <div class="group-label with-bar gbar-green"><span class="gbar"></span>O  組織・人員</div>
+  <div class="nav-item" onclick="showPage('O-01',this)"><span class="nav-id">O-01</span><span class="nav-title">台北支社 組織図</span></div>
+
+  <div class="group-label with-bar"><span class="gbar"></span>M  LC8Tマーケティング</div>
+  <div class="nav-item" onclick="showPage('L-00',this)"><span class="nav-id">L-00</span><span class="nav-title">月齢層別BCL保有</span></div>
+  <div class="nav-item" onclick="showPage('L-01',this)"><span class="nav-id">L-01</span><span class="nav-title">月次収集数</span></div>
+  <div class="nav-item" onclick="showPage('L-02',this)"><span class="nav-id">L-02</span><span class="nav-title">L段全体課題</span></div>
+  <div class="nav-item" onclick="showPage('L-03',this)"><span class="nav-id">L-03</span><span class="nav-title">収集ルート別</span></div>
+  <div class="nav-item" onclick="showPage('L-04',this)"><span class="nav-id">L-04</span><span class="nav-title">L段やるべきこと</span></div>
+  <div class="nav-item" onclick="showPage('C-01',this)"><span class="nav-id">C-01</span><span class="nav-title">Community現状</span></div>
+  <div class="nav-item" onclick="showPage('C-02',this)"><span class="nav-id">C-02</span><span class="nav-title">C段精進テーマ</span></div>
+  <div class="nav-item" onclick="showPage('8-00',this)"><span class="nav-id">8-00</span><span class="nav-title">Super8戦略</span></div>
+  <div class="nav-item" onclick="showPage('8-01',this)"><span class="nav-id">8-01</span><span class="nav-title">A/Bの理想</span></div>
+  <div class="nav-item" onclick="showPage('8-02',this)"><span class="nav-id">8-02</span><span class="nav-title">ACTS手動実験教訓</span></div>
+  <div class="nav-item" onclick="showPage('8-04',this)"><span class="nav-id">8-04</span><span class="nav-title">SP活動</span></div>
+  <div class="nav-item" onclick="showPage('8-05',this)"><span class="nav-id">8-05</span><span class="nav-title">Super8システム構成</span></div>
+  <div class="nav-item" onclick="showPage('T-00',this)"><span class="nav-id">T-00</span><span class="nav-title">TEL定義と戦略</span></div>
+  <div class="nav-item" onclick="showPage('T-01',this)"><span class="nav-id">T-01</span><span class="nav-title">リスト構成</span></div>
+  <div class="nav-item" onclick="showPage('T-02',this)"><span class="nav-id">T-02</span><span class="nav-title">実績と課題</span></div>
+
+  <div class="group-label with-bar gbar-red"><span class="gbar"></span>A  ACTSプロジェクト</div>
+  <div class="nav-item" onclick="showPage('A-01',this)"><span class="nav-id">A-01</span><span class="nav-title">ACTS定義</span></div>
+  <div class="nav-item" onclick="showPage('A-02',this)"><span class="nav-id">A-02</span><span class="nav-title">LC8T内の位置づけ</span></div>
+  <div class="nav-item" onclick="showPage('A-03',this)"><span class="nav-id">A-03</span><span class="nav-title">9商品配信順序</span></div>
+  <div class="nav-item" onclick="showPage('A-04',this)"><span class="nav-id">A-04</span><span class="nav-title">配信ロジック</span></div>
+  <div class="nav-item" onclick="showPage('A-05',this)"><span class="nav-id">A-05</span><span class="nav-title">考慮点・残課題</span></div>
+
+  <div class="group-label with-bar gbar-red"><span class="gbar"></span>TB  タスクボード</div>
+  <div class="nav-item" onclick="showPage('TB-01',this)"><span class="nav-id">TB-01</span><span class="nav-title">経営判断イシュー</span></div>
+  <div class="nav-item" onclick="showPage('TB-02',this)"><span class="nav-id">TB-02</span><span class="nav-title">コンテキスト構築進捗</span></div>
+  <div class="nav-item" onclick="showPage('TB-03',this)"><span class="nav-id">TB-03</span><span class="nav-title">PJ一覧</span></div>
+  <div class="nav-item" onclick="showPage('TB-04',this)"><span class="nav-id">TB-04</span><span class="nav-title">確認待ち（IP）</span></div>
+  <div class="nav-item" onclick="showPage('TB-05',this)"><span class="nav-id">TB-05</span><span class="nav-title">確認待ち（費用物流）</span></div>
+  <div class="nav-item" onclick="showPage('TB-06',this)"><span class="nav-id">TB-06</span><span class="nav-title">確認待ち（LC8T）</span></div>
+
+  <div class="group-label with-bar gbar-green"><span class="gbar"></span>S  ミッション総覧</div>
+  <div class="nav-item" onclick="showPage('S-01',this)"><span class="nav-id">S-01</span><span class="nav-title">全社課題マップ</span></div>
+</nav>
+
+<!-- ══════════ メイン ══════════ -->
+<main class="main">
+  <div class="page-header">
+    <div class="page-title">FY25 経営コンテキスト大全<span class="page-title-badge">v1 / 2026-05-10</span></div>
+    <div class="page-meta">ベネッセ台北支社　経営幹部向け　単位：百万NTD（特記なき限り）</div>
+  </div>
+
+<!-- ══ 0-01 メッセージ（経営幹部へ） ══ -->
+<div id="0-01" class="page-content active">
+  <div class="section">
+    <div class="section-head"><span class="section-num">0-01</span><span class="section-title">メッセージ（経営幹部へ）</span></div>
+
+    <div class="text-block">
+      <h4>▸ この文書の位置づけ</h4>
+      <p><strong>本書は台北支社の経営幹部に向けた、経営判断のコンテキスト共有資料である。</strong></p>
+      <p>経営幹部とは、自処のミッション遂行に責任を持つだけでなく、<strong>支社全体の経営判断に責任を分担する立場</strong>を指す。一般社員向けの業務マニュアルではなく、<strong>経営幹部が私と同じ判断軸で動けるようになる</strong>ことを目的とした文書。</p>
+    </div>
+
+    <div class="text-block">
+      <h4>▸ なぜこの文書を作ったか</h4>
+      <p>私が日々下している経営判断は、勘でも気分でもなく、<strong>「理想 ↔ 現状 ↔ GAP（=取り組むべき課題）」という同じ思考パターン</strong>を全事業・全テーマに当てはめている。その思考プロセスをそのまま開示することで、<strong>私が理想とする状況を理解してもらい、まずは実現に向け努力をしてほしい</strong>。<strong>現実的でない理想は、実現不可能な理由をきちんと伝えてほしい。</strong></p>
+      <p>まず目指すのは<strong>経営レベルの向上</strong>。戦略の理解と実行、ROIを意識し、<strong>数字で判断できる文化</strong>、情報にすぐにアクセスできる、整った数字にもすぐにアクセスできる。AIを使って効率のみならず、<strong>仕事の質を上げる</strong>。</p>
+    </div>
+
+    <div class="info">
+      <strong>本質的目的：</strong>「データと共に検証できる仕組みを作り、それを意識して社員が自分たちで動けるようになる」——これが全ての起点。<br>
+      各事業の理想・現状・GAPを掘り続けると、根本原因は同じところに収束する：<strong>データが見えない → 判断できない → 社員が動けない → 理想に届かない。</strong>このコンテキスト大全を構築する行為自体が、この構造を変えるための第一歩。経営幹部はこの構造変革の<strong>推進主体</strong>である。
+    </div>
+
+    <div class="text-block">
+      <h4>▸ 読み方（思考の順序）</h4>
+      <p>全章を以下のテンプレートで貫いている。<strong>この順序で読むと、私の判断軸がそのまま頭に入る。</strong></p>
+    </div>
+    <table>
+      <thead><tr><th style="width:14%">ステップ</th><th style="width:24%">何を見るか</th><th>この文書での表現</th></tr></thead>
+      <tbody>
+        <tr><td class="name"><span class="badge" style="background:#FCE6D6;color:#CF6A2E;border:1px solid #E8B89A">① 理想</span></td><td>この事業・機能は本来何のためにあるか</td><td>「戦略の骨子（理想）」フレーム</td></tr>
+        <tr><td class="name"><span class="badge badge-info">② 現状</span></td><td>数値・チャネル・実態は今どうなっているか</td><td>KPIカード・データ表・グラフ</td></tr>
+        <tr><td class="name"><span class="badge badge-warn">③ GAP</span></td><td>理想と現状の差は何か。構造的問題は何か</td><td>「GAP」セクション</td></tr>
+        <tr><td class="name"><span class="badge badge-good">④ ミッション</span></td><td>GAPを埋めるために何をやるか</td><td>issue-list・タスクID</td></tr>
+      </tbody>
+    </table>
+
+    <div class="text-block">
+      <h4>▸ 章立てとおすすめ読了順</h4>
+      <ul>
+        <li><strong>V章</strong> → 経営の根本フレーム（思想を入れる）</li>
+        <li><strong>P章</strong> → 全事業の数値実態（地図を持つ）</li>
+        <li><strong>F・O章</strong> → 費用と組織（足元を知る）</li>
+        <li><strong>M章＋A</strong> → LC8T・ACTS（仕組みを理解する）</li>
+        <li><strong>TB章</strong> → 進行中タスク（自分の現在地を確認）</li>
+        <li><strong>S章</strong> → ミッション総覧（自分が何にコミットするかを決める）</li>
+      </ul>
+      <p><strong>経営幹部は全章を一度通読することを期待する。</strong>自処の管轄外であっても、他処のコンテキストを把握していることが経営判断の前提となる。</p>
+    </div>
+
+    <div class="text-block">
+      <h4>▸ 経営幹部への要請</h4>
+      <ol style="margin-left:20px">
+        <li><strong>本書を判断の参照軸として使うこと。</strong>「理想 ↔ 現状 ↔ GAP」のフレームで自処の課題を整理し、自分の言葉で部下に伝えてほしい。</li>
+        <li><strong>暫定情報・要確認事項の解消に主体的に関わること。</strong>「⚠️ 暫定」「要確認」と明記された箇所は、各処が一次情報で埋める責任を負う。</li>
+        <li><strong>誤りや認識違いの指摘を歓迎する。</strong>本書は私の認識をベースにしているが、現場の一次情報を持つのは各処長・各リーダーである。指摘は経営判断の質を高める貢献として最大限に評価する。</li>
+      </ol>
+      <p style="margin-top:10px">経営幹部が判断軸を共有した状態で動く組織にしたい。本書はその合意形成のためのドキュメントである。</p>
+      <p style="text-align:right;margin-top:14px;color:var(--text-secondary)">— 小沼和幸　台北支社長</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 0-02 経営サマリー ══ -->
+<div id="0-02" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">0-02</span><span class="section-title">経営サマリー（FY25実績）</span><span class="section-note">202504〜202603・単位：百万NTD</span></div>
+
+    <div class="info">
+      <strong>売上181.1M → 各事業利益 → 共通費 → 営業利益▲10.3M</strong>のウォーターフォール。 営業利益は共通費を各事業に按分せず一括表示。<strong>「3本柱粗利合計 ＞ 共通費」になれば黒字</strong>という思想。3本柱粗利合計95.1M vs 共通費99.2M → 差引▲4.1M。<strong>黒字化まであと一歩の水準。</strong>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">売上 → 営業利益　ウォーターフォール（百万NTD）</div>
+      <div class="chart-wrap tall"><canvas id="chart-0-02"></canvas></div>
+      <div style="font-size:10px;color:var(--text-muted);margin-top:8px;line-height:1.6">
+        ※ 売上181.1Mはヘッダのみ表示。WFは事業利益の積み上げから開始 → 事業利益小計88.9 → 共通費控除 → 営業利益▲10.3。<br>
+        ※ 事業利益小計88.9Mと事業OP合計81.7Mの差7.2Mは <strong>I-14（売上原価の事業別分解）</strong>完了後に厳密化予定。
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:24px"><span class="section-num">事業別</span><span class="section-title">事業別P&L 一覧</span></div>
+    <table>
+      <thead><tr><th>区分</th><th>事業</th><th class="r">売上</th><th class="r">粗利</th><th class="r">粗利率</th><th class="r">営業利益</th></tr></thead>
+      <tbody>
+        <tr class="group-header"><td colspan="6">収益事業：3本柱</td></tr>
+        <tr><td class="muted">物販</td><td class="name">學習商品</td><td class="r">57.5</td><td class="r">36.4</td><td class="r">63.4%</td><td class="pos">+27.3</td></tr>
+        <tr><td class="muted">興行</td><td class="name">舞台劇</td><td class="r">62.6</td><td class="r">34.4</td><td class="r">54.9%</td><td class="pos">+27.7</td></tr>
+        <tr><td class="muted">IP</td><td class="name">授権金</td><td class="r">26.2</td><td class="r">24.3</td><td class="r">92.6%</td><td class="pos">+20.3</td></tr>
+        <tr class="subtotal"><td colspan="2">3本柱合計</td><td class="r">146.3</td><td class="r">95.1</td><td class="r">65.0%</td><td class="pos">+75.3</td></tr>
+        <tr class="group-header"><td colspan="6">その他収益</td></tr>
+        <tr><td class="muted">物販</td><td class="name">周邊商品（巧連智統合）</td><td class="r">23.0</td><td class="r">10.1</td><td class="r">43.9%</td><td class="pos">+5.3</td></tr>
+        <tr><td class="muted">物販</td><td class="name">Mirafeel</td><td class="r">2.0</td><td class="r">0.9</td><td class="r">45.3%</td><td class="pos">+0.3</td></tr>
+        <tr><td class="muted">デジタル</td><td class="name">巧連智數位経典</td><td class="r">7.3</td><td class="r">—</td><td class="r">—</td><td class="neg">▲0.5</td></tr>
+        <tr><td class="muted">他</td><td class="name">YT・他</td><td class="r">2.5</td><td class="r">2.5</td><td class="r">100%</td><td class="r">—</td></tr>
+        <tr class="group-header"><td colspan="6">共通費（按分なし）</td></tr>
+        <tr><td colspan="2" class="muted">人件費▲46.6M / 販售費▲24.6M / 一管費▲28.0M</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="neg">▲99.2</td></tr>
+        <tr class="total"><td colspan="2">全社総計</td><td class="r">181.1</td><td class="r">115.4</td><td class="r">63.8%</td><td class="r">▲10.3</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ V-01 TBBSと戦略の骨子 ══ -->
+<div id="V-01" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num idea">V-01</span><span class="section-title">TBBSと戦略の骨子（理想）</span></div>
+
+    <div class="frame-block"><div class="frame-label idea">本質的<br>定義</div>
+      <div class="frame-body">
+        <p><strong>TBBS（Taipei Branch Business Strategy）とは、少子化・縮小市場という構造的制約の中で事業持続性を担保するための戦略。</strong></p>
+        <p>解法の核心は<strong>「台湾で勝ち筋を実証し、人口増加市場に移植する」</strong>こと。</p>
+      </div>
+    </div>
+
+    <div class="danger">
+      <strong>台湾市場の深刻度：</strong>台湾出生数は2025年に10.7万人まで減少。想定を超える速度での縮小。教育市場の母数自体が構造的に縮小し続ける環境下で、過去の延長線上での成長戦略は成立しない。
+    </div>
+
+    <div class="frame-block"><div class="frame-label">移植可能<br>の条件</div>
+      <div class="frame-body">
+        <p><strong>LC8Tエコシステムが自走している状態。</strong></p>
+        <p>巧虎IPを軸にアニメ・YouTubeで認知を作り、LINE/WhatsApp/Instagram等で顧客とダイレクトにつながり、広告依存なしに<strong>低コストで高意欲者を特定・クロージングできる仕組みが機能している状態</strong>。</p>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label">LTV-SKU<br>共創</div>
+      <div class="frame-body">
+        対象は<strong>教育商品・周邊商品・舞台劇コンテンツ</strong>。台湾・日本をはじめとした協力会社とIPを軸に共創し、<strong>在庫リスクを抑え開発スピードを上げる</strong>。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label">経営思想</div>
+      <div class="frame-body">
+        51人という極小組織において、事業別の人件費・管理費の按分に意味はない。<strong>「3本柱（物販・舞台劇・授権金）の粗利合計 ＞ 共通費」になれば黒字。</strong>これが経営判断の中核ロジック。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ V-02 グランドデザイン3段階 ══ -->
+<div id="V-02" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num idea">V-02</span><span class="section-title">台北支社の戦略的位置づけ・グランドデザイン3段階</span></div>
+
+    <div class="text-block">
+      <p>台北支社は単なる台湾事業体ではなく、<strong>「移植可能なビジネスモデルの実証拠点」</strong>として位置づける。台湾という少子化・縮小市場の中で事業転換を乗り越え、新しいビジネスシステムを作り上げた実績を積み上げることが、次のステージへの唯一の道筋。</p>
+    </div>
+
+    <div class="frame-block"><div class="frame-label idea">第1段階<br>現在</div>
+      <div class="frame-body">
+        <strong>台湾足元の黒字化と仕組み化。</strong> FY26黒字化・LC8T標準化・ACTSによる自動化エンジン構築・データ経営の確立。これが「実証」の中身。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label real">第2段階<br>構想</div>
+      <div class="frame-body">
+        <strong>人口増加市場への展開。</strong> 台湾モデルを人口増加市場に移植することが次のステージへの構想。参入順序の仮説：<strong>舞台劇</strong>（エンターテインメントは国境を越えやすく文化的制約が低い）<strong> → BCL相当DB構築 → LC8Tモデルで販売 → 遊戯施設 → 学習商品</strong>。<br>
+        <span class="badge badge-warn">⚠️ 構想段階・本社オーソライズ未着手</span>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label gap">第3段階<br>将来構想</div>
+      <div class="frame-body">
+        <strong>新興国×人口増加市場への横展開。</strong> キャラクターIPを使ったビジネスを、中間層が増える人口大国に順次展開することを構想。
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:24px"><span class="section-num">根拠</span><span class="section-title">新規国進出の構想根拠</span></div>
+    <div class="issue-list">
+      <div class="issue-item"><span class="issue-tag tag-value">既存資産</span><div class="issue-body"><strong>巧虎YouTubeチャンネル登録者約250万人</strong>（本社保有）。キャラクター認知コストゼロでスタート可能。</div></div>
+      <div class="issue-item"><span class="issue-tag tag-quality">過去の教訓</span><div class="issue-body">過去のジャカルタ支社は<strong>先行投資過重で失敗</strong>。軽量スタートの舞台劇から参入することで先行投資リスクを最小化できるという仮説。</div></div>
+      <div class="issue-item"><span class="issue-tag tag-design">劇団エコシステム</span><div class="issue-body"><strong>新規国展開は双方にとってビジネス拡大の機会</strong>となりうる。</div></div>
+    </div>
+
+    <div class="info">
+      <strong>LC8Tのグローバル標準モデルとしての意義：</strong>LC8Tは台湾固有のマーケティングツールではなく、「どの国でも再現可能なキャラクターIP×デジタルマーケティングの標準モデル」として設計されている。LINEはWhatsApp・Instagramに置き換わりうるが、「顧客獲得→タグで可視化→高意欲者に集中してCV」という構造自体は国境を超える。
+    </div>
+  </div>
+</div>
+
+<!-- ══ V-03 P=O×N×CV-I ══ -->
+<div id="V-03" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num idea">V-03</span><span class="section-title">P（LTV）＝ O × N × CV － I  経営判断フレームワーク</span></div>
+
+    <div class="text-block">
+      <p><strong>「何を動かせば利益が増えるか」を常に問い直すための経営思考ツール。</strong> 4変数は独立ではなく相互強化の関係にある。N（母数）が劣化すれば全変数が道連れになる、CV（転換率）はタグ精度（=Cの蓄積）で上がる、I（投資額）は短期EBITDAとのトレードオフ——という連動構造を理解することで、施策ごとに「どの変数を動かすのか」を明確にできる。</p>
+    </div>
+
+    <div class="kpi" style="text-align:center;padding:32px 24px;margin-bottom:26px">
+      <div class="kpi-label" style="margin-bottom:14px">経営判断フレームワーク</div>
+      <div class="kpi-val" style="font-size:38px;justify-content:center;white-space:nowrap;letter-spacing:.02em">
+        P<span style="font-size:18px;color:#9B9890;font-weight:500;margin:0 4px">(LTV)</span>＝&nbsp;O&nbsp;×&nbsp;N&nbsp;×&nbsp;CV&nbsp;−&nbsp;I
+      </div>
+      <div class="kpi-sub" style="margin-top:14px">利益（LTV） ＝ 収益サイド（O×N×CV）− 投資サイド（I）</div>
+    </div>
+
+    <table>
+      <thead><tr><th style="width:9%">変数</th><th style="width:24%">定義</th><th style="width:30%">経営上の意味</th><th>主な担当領域</th></tr></thead>
+      <tbody>
+        <tr><td class="name"><span class="badge" style="background:#FCE6D6;color:#CF6A2E;border:1px solid #E8B89A">O</span></td><td><strong>機会点</strong><br>SKU数 × 溝通時機</td><td>既存SKUを正しい月齢・タイミングで届けること</td><td>商品企画・ACTS設計・Super8配信設計</td></tr>
+        <tr><td class="name"><span class="badge badge-info">N</span></td><td><strong>母数</strong><br>有効BCL数・保有占比</td><td>BCLが全ての起点。<strong>N劣化は全変数を道連れにする</strong></td><td>BCL獲得施策・SNS・広告・キャンペーン</td></tr>
+        <tr><td class="name"><span class="badge badge-good">CV</span></td><td><strong>転換率</strong><br>溝通品質・タグ精度</td><td>タグ精度が上がるほどCVは上がる</td><td>Community運営・Super8シナリオ・電話営業</td></tr>
+        <tr><td class="name"><span class="badge badge-warn">I</span></td><td><strong>投資額</strong><br>BCL獲得コスト・施策コスト</td><td>短期EBITDAとの常なるトレードオフ</td><td>ROI意識強化、まずは数字、そして非数値化要素とあわせ経営判断</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info">
+      このフレームは判断の<strong>言語化ツール</strong>として機能する。経営幹部は施策提案時に「これはO/N/CV/Iのどれを動かす施策か」を必ず明示する習慣をつけてほしい。
+    </div>
+  </div>
+</div>
+
+<!-- ══ V-04 顧客と販売戦略 ══ -->
+<div id="V-04" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num idea">V-04</span><span class="section-title">顧客の実像と販売戦略の本質</span></div>
+
+    <div class="frame-block"><div class="frame-label idea">顧客の<br>実像</div>
+      <div class="frame-body">
+        台湾の親が巧虎に期待するのは<strong>子供の成長</strong>——基本学力・生活習慣・社会性の獲得。リソース制約の中では、商品刷新より<strong>「誰に・いつ・どう届けるか」の精度向上（LC8T）</strong>が短期的には現実的な突破口。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label real">2面戦略</div>
+      <div class="frame-body">
+        現在の売上は<strong>過去の月刊購読会員（旧顧客）</strong>に支えられているが、時間とともにその貢献は必然的に低下する。戦略は2面で実行する必要がある。
+        <ul>
+          <li><strong>① 短期：</strong>既存の旧顧客・過去会員への販売拡大</li>
+          <li><strong>② 中長期：</strong>LINEで新規・潜在顧客とつながり新規DB層を育成・拡大</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:18px"><span class="section-num">フロー</span><span class="section-title">実際の営業フロー（現場の動き）</span></div>
+    <div class="text-block">
+      <p><strong>起点：BCL獲得</strong> → <strong>中間：タグ付けとコミュニケーション醸成</strong> → <strong>クロージング：オンライン自購＋電話営業の両面</strong></p>
+      <p>この一気通貫構造がLC8Tそのもの。L（LINE）がなければデータも接点も存在せず、C（Community）がなければタグが蓄積されず、8（Super8）がなければ自動化されず、T（TEL）がなければ最後の一押しができない。<strong>4つは因果連鎖で接続されており、どこか1つが弱いと全体が機能しない。</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ V-05 チャネル・財務構造 ══ -->
+<div id="V-05" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num real">V-05</span><span class="section-title">販売チャネル構造</span></div>
+
+    <div class="section-head"><span class="section-num">チャネル</span><span class="section-title">FY25実績 チャネル別売上</span><span class="section-note">出典：FY25_事業別チャネル別売上一覧</span></div>
+    <table>
+      <thead><tr><th>チャネル</th><th class="r">売上(M NTD)</th><th style="width:32%">構成比</th><th>区分・備考</th></tr></thead>
+      <tbody>
+        <tr><td class="name">舞台劇票房</td><td class="r">62.6</td><td><div class="ch-bar"><span style="width:100%;background:#1A1916"></span><em>34.0%</em></div></td><td class="muted">85場・61,047人・年代網際チケット販売</td></tr>
+        <tr><td class="name">舞台劇会場</td><td class="r">8.8</td><td><div class="ch-bar"><span style="width:14.1%;background:#1A1916"></span><em>4.8%</em></div></td><td><span class="badge badge-warn">BCL取得課題</span> 周邊商品中心・年6万人来場</td></tr>
+        <tr><td class="name">授権金</td><td class="r">26.2</td><td><div class="ch-bar"><span style="width:41.9%;background:#1A1916"></span><em>14.2%</em></div></td><td class="muted">MD・アニメ・空間・イベント</td></tr>
+        <tr><td class="name">Web（官網）</td><td class="r">23.4</td><td><div class="ch-bar"><span style="width:37.4%;background:#2D6A4F"></span><em>12.7%</em></div></td><td><span class="badge badge-good">LC8T完全把握</span> 最小コスト・最大LTVの理想形</td></tr>
+        <tr><td class="name">電話営業（TM）</td><td class="r">22.6</td><td><div class="ch-bar"><span style="width:36.1%;background:#2D6A4F"></span><em>12.3%</em></div></td><td><span class="badge badge-good">LC8T完全把握</span> 台湾顧客特性と相性◎・最高品質BCL資産</td></tr>
+        <tr><td class="name">団購KOL</td><td class="r">15.6</td><td><div class="ch-bar"><span style="width:24.9%;background:#2D6A4F"></span><em>8.5%</em></div></td><td><span class="badge badge-good">LC8T完全把握</span> Shopline決済経由</td></tr>
+        <tr><td class="name">EC（蝦皮）</td><td class="r">8.8</td><td><div class="ch-bar"><span style="width:14.1%;background:#C8990A"></span><em>4.8%</em></div></td><td><span class="badge badge-warn">データ還流不可</span></td></tr>
+        <tr><td class="name">その他</td><td class="r">7.2</td><td><div class="ch-bar"><span style="width:11.5%;background:#9B9890"></span><em>3.9%</em></div></td><td class="muted">YT広告・他</td></tr>
+        <tr><td class="name">數位経典</td><td class="r">5.0</td><td><div class="ch-bar"><span style="width:8.0%;background:#1A1916"></span><em>2.7%</em></div></td><td class="muted">月額・年額契約</td></tr>
+        <tr><td class="name">授権チャネル</td><td class="r">3.2</td><td><div class="ch-bar"><span style="width:5.1%;background:#9B9890"></span><em>1.7%</em></div></td><td class="muted">部分把握</td></tr>
+        <tr><td class="name">経代銷</td><td class="r">0.6</td><td><div class="ch-bar"><span style="width:1.0%;background:#9B9890"></span><em>0.3%</em></div></td><td class="muted">部分把握</td></tr>
+        <tr class="total"><td>合計</td><td class="r">184.0</td><td>100%</td><td>※集計差により全社売上181.1Mと若干差異</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ══ V-06 CSPD ══ -->
+<div id="V-06" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num idea">V-06</span><span class="section-title">CSPD（組織行動方針）</span></div>
+
+    <div class="text-block">
+      <p><strong>CSPDは、ベネッセ台北支社がTBBS（Taipei Branch Business Strategy）を実現するために定義した、組織と個人の成長に必要な4つの基礎能力のフレームワーク。</strong>「少数精鋭で最大の成果を生み出す」強いチームを作るための、<strong>思考と行動の基盤</strong>として位置づける。</p>
+    </div>
+
+    <div class="kpi-grid two" style="margin-top:18px">
+      <div class="kpi"><div class="kpi-label">C — Challenge</div><div class="kpi-val" style="font-size:22px">挑戦意欲</div></div>
+      <div class="kpi"><div class="kpi-label">S — Strategy</div><div class="kpi-val" style="font-size:22px">戦略的思考</div></div>
+      <div class="kpi"><div class="kpi-label">P — Partnership</div><div class="kpi-val" style="font-size:22px">共創力</div></div>
+      <div class="kpi"><div class="kpi-label">D — Digital Tools</div><div class="kpi-val" style="font-size:22px">デジタル力</div></div>
+    </div>
+
+    <div class="frame-block" style="margin-top:18px"><div class="frame-label idea">C<br>Challenge</div>
+      <div class="frame-body" style="font-size:13px">
+        <strong>挑戦意欲</strong><br>
+        未来への想像と責任感を持ち、主体的に探索・挑戦し、これまでにない方法を提案する力。挑戦は無謀ではなく、<strong>「価値ある成果のため」にリスクと他者の立場を理解したうえで、チームと合意し勇敢に行動する</strong>ことを指す。結果の成否にかかわらず、<strong>すべての挑戦が個人と会社の成長資産になる</strong>という考え方を基本とする。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label real">S<br>Strategy</div>
+      <div class="frame-body" style="font-size:13px">
+        <strong>戦略的思考</strong><br>
+        設計図を描くように、理想の成果から出発し、<strong>「なぜやるのか → 目標は何か → 条件と制約は → 誰に価値をもたらすか」を逆算</strong>して行動計画に落とし込む力。タスクをこなすのではなく、<strong>すべての行動を自分・チーム・会社の未来のブループリントに向かわせる思考</strong>を指す。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label gap">P<br>Partnership</div>
+      <div class="frame-body" style="font-size:13px">
+        <strong>共創力</strong><br>
+        部門を超えて他の専門性や立場を理解し、<strong>「全体成果」の視点でコミュニケーションと協業を推進する力</strong>。自分の苦手なことは得意な人を探して一緒に取り組むことを厭わず、ただ協力するだけでなく、<strong>統合的なアイデアを提案し、社内外パートナーとの共同価値を創造し、成果の可能性を拡張する</strong>ことを指す。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label mission">D<br>Digital</div>
+      <div class="frame-body" style="font-size:13px">
+        <strong>デジタル活用力</strong><br>
+        自分の仕事の効率と品質を高めるために、<strong>主体的にデジタルツールの活用方法を探索・学習する力</strong>。特に、自分の業務に適した<strong>AIの活用法を学び、コンテンツ産出・プロセス最適化・思考の深化から課題解決力の向上</strong>を図ることを求める。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ P-00 物販の4分類 ══ -->
+<div id="P-00" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num idea">P-00</span><span class="section-title">物販の4分類（戦略軸）</span></div>
+
+    <div class="text-block">
+      <p>物販事業を<strong>戦略軸で4つに分類</strong>している。これから読むP-01〜P-06はこの4分類を実装した事業。<strong>「②と③の区別」が特に重要</strong>——②は相手主体の商品を仕入れて売る、③は台北支社が企画して共同開発する商品。役割が決定的に異なる。</p>
+    </div>
+
+    <div class="section-head"><span class="section-num">②③区別</span><span class="section-title">②IP周邊商品 vs ③共創SKU の本質的差異</span></div>
+    <table>
+      <thead><tr><th>区分</th><th>台北支社の役割</th><th>商品の主体</th><th>例</th></tr></thead>
+      <tbody>
+        <tr><td class="name">②IP周邊商品</td><td><strong>バイヤー兼販売者</strong></td><td>相手が主体で既に製造・販売している商品を仕入れて販売</td><td>Skater・TOMICA・巧虎組裝積木</td></tr>
+        <tr><td class="name">③共創SKU</td><td><strong>イニシエーター</strong></td><td>台北支社が企画・持ちかけて共同開発する新商品</td><td>Pixsee・AIしまじろう・ベビーフード</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-head" style="margin-top:18px"><span class="section-num">4分類</span><span class="section-title">4分類の戦略的位置づけ</span></div>
+    <div class="cat4-grid">
+      <div class="cat4">
+        <span class="cat4-no">①</span>
+        <div class="cat4-title">主力學習商品</div>
+        <div class="cat4-body">9SKU・単価NT$2,199〜4,900・自社・巧虎IP。<strong>LC8T実証の主戦場・LTV最大化の核心。</strong></div>
+        <div class="cat4-tag">→ P-01 學習商品</div>
+      </div>
+      <div class="cat4">
+        <span class="cat4-no">②</span>
+        <div class="cat4-title">IP周邊商品</div>
+        <div class="cat4-body">巧虎グッズ・生活周辺商品144SKU。相手主体の商品を仕入れ販売。巧連智商品（旧月刊資産）を管理会計上統合。<strong>多チャネル展開・日本本社IPライセンス事業との連動。</strong></div>
+        <div class="cat4-tag">→ P-04 周邊商品（巧連智統合）</div>
+      </div>
+      <div class="cat4">
+        <span class="cat4-no">③</span>
+        <div class="cat4-title">共創SKU</div>
+        <div class="cat4-body">台北支社が企画・持ちかけて共同開発する商品・巧虎IP。<strong>授権金事業の受け身構造を能動的共創構造に転換。</strong>新規国進出の武器候補。</div>
+        <div class="cat4-tag">→ P-05 共創SKU</div>
+      </div>
+      <div class="cat4">
+        <span class="cat4-no">④</span>
+        <div class="cat4-title">その他物販</div>
+        <div class="cat4-body">Mirafeel等。巧虎マーケティングで販売する非巧虎IP商品。授権金リスクヘッジとして生まれた事業。<strong>LC8T本格稼働時に最も恩恵を受けるSKU。</strong></div>
+        <div class="cat4-tag">→ P-06 Mirafeel</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ P-01 學習商品 ══ -->
+<div id="P-01" class="page-content">
+  <div class="kpi-grid">
+    <div class="kpi accent"><div class="kpi-label">売上</div><div class="kpi-val">57.5M</div><div class="kpi-sub">3本柱・物販①主力</div></div>
+    <div class="kpi"><div class="kpi-label">粗利</div><div class="kpi-val">36.4M</div><div class="kpi-sub">粗利率63.4%</div></div>
+    <div class="kpi good"><div class="kpi-label">営業利益</div><div class="kpi-val">+27.3M</div><div class="kpi-sub">3本柱中最大</div></div>
+    <div class="kpi"><div class="kpi-label">SKU数</div><div class="kpi-val">9</div><div class="kpi-sub">NT$2,199〜4,900</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="section-num">P-01</span><span class="section-title">學習商品（収益3本柱・物販①）</span></div>
+
+    <div class="frame-block"><div class="frame-label idea">理想</div>
+      <div class="frame-body">
+        <strong>妊娠期〜1歳未満でBCLを獲得し、最低月齢商品から小学校入学前後まで全SKUを月齢順に購入してもらう。</strong>チャネルはLINE→Web自購で完結するのが最小コスト・最大LTVの理想形。LC8Tエコシステム実証の主戦場。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label real">現状</div>
+      <div class="frame-body">
+        <p><strong>FY25 チャネル構成：</strong></p>
+        <table style="margin-top:6px">
+          <thead><tr><th>チャネル</th><th class="r">売上</th><th class="r">構成比</th><th>データ把握</th></tr></thead>
+          <tbody>
+            <tr><td class="name">電話営業（TM）</td><td class="r">19.6M</td><td class="r">34.1%</td><td><span class="badge badge-good">完全把握</span></td></tr>
+            <tr><td class="name">Web（官網）</td><td class="r">15.8M</td><td class="r">27.5%</td><td><span class="badge badge-good">完全把握</span></td></tr>
+            <tr><td class="name">団購・KOL</td><td class="r">14.7M</td><td class="r">25.6%</td><td><span class="badge badge-good">Shopline決済</span></td></tr>
+            <tr><td class="name">EC（蝦皮）</td><td class="r">5.3M</td><td class="r">9.2%</td><td><span class="badge badge-warn">還流不可</span></td></tr>
+            <tr><td class="name">経代銷・他</td><td class="r">2.5M</td><td class="r">3.6%</td><td class="muted">部分把握</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label gap">GAP</div>
+      <div class="frame-body">
+        <p><strong>① 0〜36M層のBCLカバー率5〜9%にとどまり低月齢獲得が機能不全。</strong>転換率が最も高い層がDBで最も手薄という逆転現象。</p>
+        <p><strong>② Web&lt;TMになっている理由は商品への顧客の納得度・理解度が不十分でWeb自購に至らないから。</strong>LC8Tが十分に機能していない証拠。<span class="badge badge-info">TMは台湾顧客特性と相性が良い戦略的チャネルとして積極維持</span></p>
+        <p><strong>③ KOL依存の構造的問題：</strong>FY25のKOL売上上位3SKUはいずれもFY25新商品。KOLは新商品でないと積極的に動かない。SKU拡大余地縮小とのデッドロック。15%マージン上限が障壁。</p>
+        <p><strong>④ 構造的限界：</strong>幼児教育の主要テーマをほぼカバーし尽くしており新規SKU開発の余地が縮小。リニューアル・パッケージング・価格調整で対応中。</p>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label mission">ミッション</div>
+      <div class="frame-body">
+        <div class="issue-list" style="margin-top:0">
+          <div class="issue-item"><span class="issue-tag tag-data">I-1</span><div class="issue-body"><strong>BCL獲得広告投資水準の決定。</strong>低月齢BCL獲得と短期EBITDAのトレードオフをどう判断するか</div></div>
+          <div class="issue-item"><span class="issue-tag tag-exec">I-2</span><div class="issue-body"><strong>Meta広告の内製化判断。</strong>代理店ブラックボックス化の解消・素材制作は社内対応済み</div></div>
+          <div class="issue-item"><span class="issue-tag tag-design">I-3</span><div class="issue-body"><strong>主力學習商品のSKU拡大構想。</strong>カバー余地縮小とKOLデッドロックの突破口</div></div>
+          <div class="issue-item"><span class="issue-tag tag-data">I-4</span><div class="issue-body"><strong>KOL別売上データの整備。</strong>団購・KOL合計15.5M NTDの個別KOL売上が未整備</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info"><strong>マーケティング戦略の根本転換：</strong>旧モデル（月刊サブスク）は大量広告費→電話番号収集→電話営業クロージング。新モデル（TBBS・LC8T）は<strong>低コストLINE登録→タグ付けで有望顧客絞り込み→Web自購＋必要な人のみ電話。</strong></div>
+  </div>
+</div>
+
+<!-- ══ P-02 舞台劇 ══ -->
+<div id="P-02" class="page-content">
+  <div class="kpi-grid">
+    <div class="kpi accent"><div class="kpi-label">売上</div><div class="kpi-val">62.6M</div><div class="kpi-sub">3本柱中最大</div></div>
+    <div class="kpi"><div class="kpi-label">粗利</div><div class="kpi-val">34.4M</div><div class="kpi-sub">粗利率54.9%</div></div>
+    <div class="kpi good"><div class="kpi-label">営業利益</div><div class="kpi-val">+27.7M</div><div class="kpi-sub">営業利益率44.2%</div></div>
+    <div class="kpi"><div class="kpi-label">場次/動員</div><div class="kpi-val">85場</div><div class="kpi-sub">61,047人・@1,012</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="section-num">P-02</span><span class="section-title">舞台劇（収益3本柱・興行）</span></div>
+
+    <div class="frame-block"><div class="frame-label idea">理想</div>
+      <div class="frame-body">
+        年2シーズン・各シーズン安定して<strong>主要6都市を巡回し、全公演でキャパシティの90%以上を達成</strong>する。会場は半年以上前に確定し予算精度が高い状態。英語劇は台北で適切な会場を確保し年間定番コンテンツとして定着。BCLとの連動により舞台劇が新規BCL獲得・既存BCL活性化の両方に機能し、物販との相互送客が回る状態。<strong>新規国進出の最初の一手として機能しうる設計。</strong>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label real">現状</div>
+      <div class="frame-body">
+        <p><strong>競争優位の本質：</strong>2004年から22年間で構築した劇団エコシステム。O劇團・如果の2劇団を競合関係に置きながら発注者として品質・価格をコントロール。<strong>新規参入者には再現不可能な参入障壁。</strong></p>
+        <p><strong>FY25 種別別票房：</strong></p>
+        <div class="chart-card" style="margin-top:6px"><div class="chart-title">公演種別別 票房構成（FY25）</div><div class="chart-wrap"><canvas id="chart-P-02"></canvas></div></div>
+        <table style="margin-top:8px">
+          <thead><tr><th>種別</th><th class="r">場次</th><th class="r">人次</th><th class="r">票房</th><th class="r">構成比</th></tr></thead>
+          <tbody>
+            <tr><td>大型舞台劇</td><td class="r">63</td><td class="r">49,056</td><td class="r">52.0M</td><td class="r">84.2%</td></tr>
+            <tr><td>英語劇</td><td class="r">16</td><td class="r">4,931</td><td class="r">3.7M</td><td class="r">5.9%</td></tr>
+            <tr><td>音楽劇</td><td class="r">4</td><td class="r">4,384</td><td class="r">5.7M</td><td class="r">9.3%</td></tr>
+            <tr><td>耶誕特別</td><td class="r">2</td><td class="r">2,676</td><td class="r">0.4M</td><td class="r">0.6%</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:8px"><strong>大型舞台劇 劇名別：</strong>魔法音樂響叮噹（27場・24.1M）／精靈的魔法夢境（26場・20.4M）／花神祭FY25分（10場・7.6M）</p>
+        <p><strong>台積電包場：</strong>FY25全8場が花神祭（新竹4・台中4）。一般販売NTD1,061より約25%低いが完全貸し切り・時期分離。固定費回収手段として合理的。</p>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label gap">GAP</div>
+      <div class="frame-body">
+        <table style="margin:0">
+          <thead><tr><th>テーマ</th><th>理想</th><th>現状</th><th>GAPの本質</th></tr></thead>
+          <tbody>
+            <tr><td class="name">会場確保</td><td>半年以上前に全会場確定</td><td>約半年前まで確定不可</td><td>会場側の運営都合に依存・構造的解決困難</td></tr>
+            <tr><td class="name">英語劇</td><td>台北で年間定番化</td><td>FY26会場未確定・存続リスクあり</td><td>如果の会場運営契約終了による基盤喪失</td></tr>
+            <tr><td class="name">宣伝到達力</td><td>BCL経由で高精度ターゲティング</td><td>月刊講座廃刊後に構造的に低下</td><td>BCL規模・質の不足が宣伝力の上限を決める</td></tr>
+            <tr><td class="name">物販との連動</td><td>会場でBCL取得・購買履歴連動</td><td>BCLデータ取得カバー率が低い</td><td>会場物販がLC8T管理外チャネル</td></tr>
+            <tr><td class="name">新規国展開</td><td>最初の一手として機能しうる</td><td>構想段階・本社オーソライズ未着手</td><td>台湾足元の黒字化・LC8T自走が前提</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label mission">ミッション</div>
+      <div class="frame-body">
+        <div class="issue-list" style="margin-top:0">
+          <div class="issue-item"><span class="issue-tag tag-design">最優先</span><div class="issue-body"><strong>舞台劇会場でのBCL化・タグ付け設計と徹底（L-6）。</strong>年間6万人来場・接触温度最高の場が最も未活用</div></div>
+          <div class="issue-item"><span class="issue-tag tag-risk">緊急</span><div class="issue-body"><strong>英語劇会場の代替確保（如果探索中・解決見通し未立）。</strong>台北で350席規模・子供向け公演に適した小劇場の構造的不足</div></div>
+          <div class="issue-item"><span class="issue-tag tag-quality">天候リスク</span><div class="issue-body">政府活動自粛勧告時の損失は全額台北支社負担。年間数場次規模で発生リスクとして織り込み</div></div>
+          <div class="issue-item"><span class="issue-tag tag-data">確認</span><div class="issue-body">音楽劇・特別公演の計上区分（舞台劇売上 / 授権金）のERP上の科目確認</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert"><strong>コスト構造：</strong>1公演あたりの費用は劇団報酬中心の固定費。予算目標はキャパ85〜90%設定。これを上回った分はほぼ利益、下回った分はほぼ損失。<strong>会場確保数が年間損益に最も影響する変数。</strong></div>
+  </div>
+</div>
+
+<!-- ══ P-03 授権金 ══ -->
+<div id="P-03" class="page-content">
+  <div class="kpi-grid">
+    <div class="kpi accent"><div class="kpi-label">売上</div><div class="kpi-val">26.2M</div><div class="kpi-sub">3本柱・IPライセンス</div></div>
+    <div class="kpi"><div class="kpi-label">粗利</div><div class="kpi-val">24.3M</div><div class="kpi-sub">粗利率92.6%</div></div>
+    <div class="kpi good"><div class="kpi-label">営業利益</div><div class="kpi-val">+20.3M</div><div class="kpi-sub">ほぼ原価ゼロ事業</div></div>
+    <div class="kpi warn"><div class="kpi-label">廠商集中</div><div class="kpi-val">32.7%</div><div class="kpi-sub">維新1社</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="section-num">P-03</span><span class="section-title">授権金（IPライセンス事業）</span></div>
+
+    <div class="frame-block"><div class="frame-label idea">理想</div>
+      <div class="frame-body">
+        <ul>
+          <li><strong>① MD授権の能動化：</strong>受け身のライセンス付与から、台北支社がイニシエーターとなって商品共同開発し<strong>ライセンス料収入と販売粗利の二重収益</strong>を得る構造へ。維新との共創SKU（ベビーフード等）がその実践形態</li>
+          <li><strong>② ターゲット拡大：</strong>子育て世代に限定された巧虎IPのリーチを<strong>中青世代・若者層まで拡張</strong>。大港開唱出演・Threads運用（フォロワー7.6万）・快閃店（IPmixer/艾品共創・NDA締結済み）</li>
+          <li><strong>③ 日本ライセンシーとの連動深化：</strong>日本アカウント計上のROY収入も含めた全体像把握と相互強化</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label real">現状</div>
+      <div class="frame-body">
+        <p>PL科目「授権金」だが実態は<strong>IPライセンス事業として広く捉える</strong>。台湾PL計上分（NTD 26.2M）のみで、日本ライセンシー（サンスター・バンダイ・大阪前田等）からのROYは日本アカウント。台北支社管理IPの全収益像は台湾PLだけでは把握不能。</p>
+        <p><strong>FY25 廠商4分類実績（NTD 23.3M・202603分未収録）：</strong></p>
+        <table style="margin-top:6px">
+          <thead><tr><th>分類</th><th class="r">金額</th><th class="r">構成比</th><th>主要廠商</th></tr></thead>
+          <tbody>
+            <tr><td class="name">A：MD授権</td><td class="r">20.8M</td><td class="r">89.3%</td><td>維新7.6M / 幫寶適6.1M / 神寶醫資1.3M / 火星生技1.0M / 悠活原力1.1M</td></tr>
+            <tr><td class="name">B：アニメ・配信</td><td class="r">2.5M</td><td class="r">10.7%</td><td>東森幼幼1.6M / 台灣大哥大0.4M / 飛行國際0.3M</td></tr>
+            <tr><td class="name">C：空間・遊戯</td><td class="r">2.3M</td><td class="r">9.9%</td><td>國泰桃園置地（夢想樂園）2.3M（毎月コンスタント）</td></tr>
+            <tr><td class="name">D：イベント</td><td class="r">0.2M</td><td class="r">1.0%</td><td>須彌攝影設計0.15M / 桃園大眾捷運</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label gap">GAP</div>
+      <div class="frame-body">
+        <ul>
+          <li><strong>計上が極めて不定期。</strong>202504にNTD 7.9M・202505にNTD 0.4Mという極端な波。月次損益管理が困難</li>
+          <li><strong>幫寶適（P&G）終了によるNTD 6.1Mの穴がFY26以降に発生。</strong>FY26/3月契約終了</li>
+          <li><strong>維新1社で32.7%を占め集中リスク</strong></li>
+          <li>好園地（代理店）経由が41.6%を占める受け身構造</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label mission">ミッション</div>
+      <div class="frame-body">
+        <div class="issue-list" style="margin-top:0">
+          <div class="issue-item"><span class="issue-tag tag-data">T-新A</span><div class="issue-body">瑞展創意（A-11）の取引内容確認</div></div>
+          <div class="issue-item"><span class="issue-tag tag-data">T-新B</span><div class="issue-body">幫寶適最終計上（202601）以降202602〜603のERP計上有無確認</div></div>
+          <div class="issue-item"><span class="issue-tag tag-data">T-新C</span><div class="issue-body">維新の不定期計上ロジック確認（年間精算型か・大型案件一括か）</div></div>
+          <div class="issue-item"><span class="issue-tag tag-data">T-新D</span><div class="issue-body">日本アカウントROY収入の全体像把握</div></div>
+          <div class="issue-item"><span class="issue-tag tag-exec">T-新E</span><div class="issue-body">快閃店（IPmixer/艾品共創）案件の進行管理（NDA締結済み・企画詰め中）</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ P-04 周邊商品 ══ -->
+<div id="P-04" class="page-content">
+  <div class="kpi-grid">
+    <div class="kpi accent"><div class="kpi-label">売上（統合後）</div><div class="kpi-val">23.0M</div><div class="kpi-sub">周邊20.9+巧連智2.1</div></div>
+    <div class="kpi"><div class="kpi-label">粗利</div><div class="kpi-val">10.1M</div><div class="kpi-sub">粗利率43.9%</div></div>
+    <div class="kpi"><div class="kpi-label">営業利益</div><div class="kpi-val">+5.3M</div><div class="kpi-sub">統合後</div></div>
+    <div class="kpi"><div class="kpi-label">SKU数</div><div class="kpi-val">144</div><div class="kpi-sub">物販②IP周邊</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="section-num">P-04</span><span class="section-title">周邊商品（巧連智統合）・物販②IP周邊</span></div>
+
+    <div class="info">
+      <strong>2026-05-10管理会計統合方針確定：</strong>巧連智商品（旧月刊講座時代の在庫資産）は管理会計・コンテキスト大全上、周邊商品に統合して管理。ERP上の科目変更は経理担当者への指示タスク（I-10）。<br>
+      統合前の周邊商品粗利率50.3%は実態より良く見えていた。<strong>統合後43.9%が正確な管理会計上の実態。</strong>
+    </div>
+
+    <div class="frame-block"><div class="frame-label idea">理想</div>
+      <div class="frame-body">
+        台北支社は<strong>バイヤー兼販売者</strong>として、巧虎IPを活用した周辺商品群を多チャネルで展開する。日本本社IPライセンス事業との連動・チャネル拡張余地が最も大きい事業。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label real">現状</div>
+      <div class="frame-body">
+        <p><strong>FY25 チャネル構造：</strong></p>
+        <table style="margin-top:6px">
+          <thead><tr><th>チャネル</th><th class="r">売上</th><th class="r">構成比</th><th>特徴</th></tr></thead>
+          <tbody>
+            <tr><td class="name">舞台劇会場</td><td class="r">8.8M</td><td class="r">42%</td><td><span class="badge badge-warn">BCLデータ取得が課題</span></td></tr>
+            <tr><td class="name">Web（官網）</td><td class="r">4.6M</td><td class="r">22%</td><td><span class="badge badge-good">完全把握</span></td></tr>
+            <tr><td class="name">授権チャネル</td><td class="r">3.2M</td><td class="r">15%</td><td class="muted">部分把握</td></tr>
+            <tr><td class="name">EC（蝦皮）</td><td class="r">1.3M</td><td class="r">6%</td><td><span class="badge badge-warn">還流不可</span></td></tr>
+            <tr><td class="name">TM・団購</td><td class="r">1.5M</td><td class="r">7%</td><td><span class="badge badge-good">完全把握</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label gap">GAP</div>
+      <div class="frame-body">
+        <ul>
+          <li><strong>過去の経緯で積み上がった既存在庫の消化が最優先</strong></li>
+          <li><strong>SKU別粗利率が未把握（I-5）。</strong>144SKUの収益性が経営判断不可状態</li>
+          <li><strong>巧連智商品の在庫簿価未把握・処分時損失リスクあり（I-10）</strong></li>
+          <li>舞台劇会場42%がLC8T管理外チャネル</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label mission">ミッション</div>
+      <div class="frame-body">
+        <div class="issue-list" style="margin-top:0">
+          <div class="issue-item"><span class="issue-tag tag-data">I-5</span><div class="issue-body">144SKUの粗利率可視化と在庫管理（商品マスタ・仕入単価・ERP連携）</div></div>
+          <div class="issue-item"><span class="issue-tag tag-risk">I-10</span><div class="issue-body">巧連智商品ERP科目変更の経理指示・在庫簿価把握・処分損失リスク管理</div></div>
+          <div class="issue-item"><span class="issue-tag tag-design">L-6連動</span><div class="issue-body">舞台劇会場でのBCL化（42%チャネルがLC8T管理下に入る）</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ P-05 共創SKU ══ -->
+<div id="P-05" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">P-05</span><span class="section-title">共創SKU（物販③・巧虎IP）</span></div>
+
+    <div class="frame-block"><div class="frame-label idea">理想</div>
+      <div class="frame-body">
+        台北支社が<strong>イニシエーター</strong>として企画・持ちかけて共同開発する商品。<strong>授権金事業の受け身構造を能動的共創構造に転換</strong>し、ライセンス料収入＋販売粗利の二重収益を得る。新規国進出の武器候補。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label real">現状</div>
+      <div class="frame-body">
+        <p>FY25時点では独立した事業科目としてのPL計上なし。②（周邊）・④（その他物販）の中に一部含まれる形で計上。</p>
+        <ul style="margin-top:6px">
+          <li><strong>AI巧虎：</strong>本社確認中・契約未締結（I-7〜I-9）</li>
+          <li><strong>ベビーフード（維新共創）：</strong>交渉中</li>
+          <li><strong>Pixsee（神寶醫資）：</strong>FY25実績NTD 1.33M（コンテンツ提供収入・初回のみ）</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label gap">GAP</div>
+      <div class="frame-body">
+        AI巧虎PJで<strong>3つの構造的リスクが同時進行</strong>している：
+        <ul>
+          <li><strong>I-7 利益計算ベース未合意：</strong>費用控除定義の双方合意条件が詰め切れていない。利益がゼロに圧縮されても反論できないリスク</li>
+          <li><strong>I-8 契約相手法人の確認：</strong>臨界科技がKKCompanyの別法人か関連会社か判然としない。誰と契約しているかという法的基礎問題</li>
+          <li><strong>I-9 契約未締結のまま行銷先行：</strong>FB連載・LaLaport実体活動・嘖嘖クラウドファンディングの行銷ロードマップが走る一方、契約は本社確認中</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label mission">ミッション</div>
+      <div class="frame-body">
+        <div class="issue-list" style="margin-top:0">
+          <div class="issue-item"><span class="issue-tag tag-risk">I-7</span><div class="issue-body">AI巧虎PJ 費用控除定義の詳細合意（修正条文案 pageID:490964160）</div></div>
+          <div class="issue-item"><span class="issue-tag tag-risk">I-8</span><div class="issue-body">AI巧虎PJ 契約相手法人の確認（阿比留さん・育菱さんへ）</div></div>
+          <div class="issue-item"><span class="issue-tag tag-risk">I-9</span><div class="issue-body">AI巧虎PJ 行銷先行リスクの管理（本社確認完了次第判断）</div></div>
+          <div class="issue-item"><span class="issue-tag tag-data">A-1</span><div class="issue-body">FB連載投稿の実施確認（4/11・4/25・5/9・5/23）</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ P-06 Mirafeel ══ -->
+<div id="P-06" class="page-content">
+  <div class="kpi-grid three">
+    <div class="kpi accent"><div class="kpi-label">売上</div><div class="kpi-val">2.0M</div><div class="kpi-sub">物販④その他</div></div>
+    <div class="kpi"><div class="kpi-label">粗利</div><div class="kpi-val">0.9M</div><div class="kpi-sub">粗利率45.3%</div></div>
+    <div class="kpi good"><div class="kpi-label">営業利益</div><div class="kpi-val">+0.3M</div><div class="kpi-sub">非巧虎IP</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="section-num">P-06</span><span class="section-title">Mirafeel（物販④その他物販）</span></div>
+
+    <div class="frame-block"><div class="frame-label idea">理想</div>
+      <div class="frame-body">
+        <strong>授権金リスクヘッジとして生まれた事業</strong>（巧虎マーケティングで販売する非巧虎IP商品）。<strong>LC8T本格稼働時に最も恩恵を受けるSKU。</strong>FY26/3月のP&G契約終了を機に本格的に巧虎×Mirafeelとして展開できる体制。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label real">現状</div>
+      <div class="frame-body">
+        FY25実績2.0M。販売数量2,243個・1個あたり発送費約60NTD。<strong>Mirafeelは LC8Tエコシステムの完成度を測るバロメーター</strong>として機能する。FY26/3月から巧虎×Mirafeelとして本格展開開始。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label gap">GAP</div>
+      <div class="frame-body">
+        LC8Tが本格稼働しないとMirafeelの売上は伸びない構造。L段（BCL獲得）・8段（ACTS自動化）の進捗に売上が直接依存する。<strong>Mirafeelの売上推移は LC8T 全体の機能診断指標として活用できる。</strong>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label mission">ミッション</div>
+      <div class="frame-body">
+        FY26/3月以降の巧虎×Mirafeel本格展開のSP活動設計（M章 8-04参照）。LC8T進捗の指標としてMirafeel売上を月次モニタリング。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ P-07 數位経典・YT ══ -->
+<div id="P-07" class="page-content">
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">數位経典 売上</div><div class="kpi-val">7.3M</div><div class="kpi-sub">デジタル</div></div>
+    <div class="kpi danger"><div class="kpi-label">數位経典 営業利益</div><div class="kpi-val">▲0.5M</div><div class="kpi-sub">挖貝5.4M初年度限定</div></div>
+    <div class="kpi"><div class="kpi-label">YT・他 売上</div><div class="kpi-val">2.5M</div><div class="kpi-sub">100%粗利</div></div>
+    <div class="kpi"><div class="kpi-label">YouTube収入</div><div class="kpi-val">1.94M</div><div class="kpi-sub">認知維持インフラ</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="section-num">P-07</span><span class="section-title">巧連智數位経典 ＋ YT・他</span></div>
+
+    <div class="frame-block"><div class="frame-label idea">理想</div>
+      <div class="frame-body">
+        <strong>數位経典：</strong>月刊講座時代の教材アセットをデジタルサブスクで継続収益化。コンテンツ資産を次の商品・サービス開発に活用（I-12）。<br>
+        <strong>YT：</strong>巧虎YouTube認知維持インフラ。新規国進出における認知コストゼロの基盤。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label real">現状</div>
+      <div class="frame-body">
+        <p><strong>數位経典：</strong>FY25営業利益▲0.5Mの主因は貝殼放大（挖貝）への<strong>初年度限定費用5.4M</strong>。FY26以降この費用はゼロとなり費用構造が劇的に改善する見込み。</p>
+        <p><strong>YT・他：</strong>売上2.5M（100%粗利）。主体はYouTube広告収入NTD1.94M。</p>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label gap">GAP</div>
+      <div class="frame-body">
+        <strong>數位経典の現場ヒアリング未完了（I-11）：</strong>①月次新規契約数（月額/年額別）、②累積サブスク会員数と推移、③累積未認識収益（年額契約の残余案分）、④艾得基客行銷（月額NTD1.2万）が數位典藏専用費用か、⑤202603の齊力樂門NTD268K（通常月の1.7倍）の計上理由。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label mission">ミッション</div>
+      <div class="frame-body">
+        <div class="issue-list" style="margin-top:0">
+          <div class="issue-item"><span class="issue-tag tag-data">I-11</span><div class="issue-body">數位経典 現場ヒアリング（5項目）</div></div>
+          <div class="issue-item"><span class="issue-tag tag-design">I-12</span><div class="issue-body">數位経典 コンテンツ資産の次の商品・サービス開発への活用（中長期）</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ P-08 事業別P&L一覧表（FY25_PL_Context.htmlをインライン埋め込み） ══ -->
+<div id="P-08" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">P-08</span><span class="section-title">事業別P&L 一覧表</span><span class="section-note">v2 / 2026-05-10</span></div>
+
+    <style>
+      .pl-embed{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:#1a1a1a;background:#fff;padding:24px 28px;border-radius:8px;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.04)}
+      .pl-embed h1{font-size:18px;font-weight:500;margin:0 0 4px}
+      .pl-embed .meta{font-size:11px;color:#888;margin-bottom:24px}
+      .pl-embed table{width:100%;border-collapse:collapse;margin-bottom:10px;border:none;border-radius:0;overflow:visible}
+      .pl-embed th{font-size:11px;font-weight:500;color:#888;text-align:left;padding:5px 8px;border-bottom:1px solid #e0ddd8;background:transparent;letter-spacing:0;white-space:normal}
+      .pl-embed th.r{text-align:right}
+      .pl-embed td{padding:5px 8px;border-bottom:.5px solid #eeece8;font-size:12px;background:#fff;color:#1a1a1a;vertical-align:top;font-family:inherit}
+      .pl-embed td.r{text-align:right;font-variant-numeric:tabular-nums;font-family:inherit}
+      .pl-embed td.label{color:#888;font-weight:normal}
+      .pl-embed td.neg{color:#c0392b;text-align:right;font-variant-numeric:tabular-nums;font-family:inherit}
+      .pl-embed td.muted{color:#aaa;font-size:11px}
+      .pl-embed tr.group-header td{background:#f5f4f0;font-weight:500;font-size:11px;color:#666;padding:8px 8px 4px;border-bottom:none;letter-spacing:.04em}
+      .pl-embed tr.subtotal td{background:#f0eeea;font-weight:500;border-top:.5px solid #ccc;border-bottom:.5px solid #ccc}
+      .pl-embed tr.grand-total td{font-weight:500;border-top:1.5px solid #333;border-bottom:1.5px solid #333;font-size:13px;background:#fff;color:#1a1a1a}
+      .pl-embed .note{font-size:11px;color:#aaa;margin-top:20px;line-height:1.7;border-top:.5px solid #e8e6e0;padding-top:12px}
+    </style>
+
+    <div class="pl-embed">
+      <div class="meta">FY25実績（202504〜202603）　単位：百万NTD　v2 / 2026-05-10</div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>大区分</th>
+            <th>事業・科目</th>
+            <th class="r">売上</th>
+            <th class="r">粗利</th>
+            <th class="r">粗利率</th>
+            <th class="r">営業利益</th>
+            <th>主要コンテキスト</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="group-header"><td colspan="7">収益事業　3本柱</td></tr>
+          <tr>
+            <td class="label">物販</td><td>學習商品</td>
+            <td class="r">57.5</td><td class="r">36.4</td><td class="r">63.4%</td><td class="r">27.3</td>
+            <td class="muted">LC8T比率59.7%（Web+TM）。KOL/団購はShopline決済で顧客情報取得済み。好情緒EQ・寶寶生活で売上30%集中。</td>
+          </tr>
+          <tr>
+            <td class="label">興行</td><td>舞台劇</td>
+            <td class="r">62.6</td><td class="r">34.4</td><td class="r">54.9%</td><td class="r">27.7</td>
+            <td class="muted">85場次・61,047人。22年劇団エコシステムが競争優位の本質。台積電包場は固定費回収の観点で合理的。会場物販NTD8.8Mは周邊商品に計上。</td>
+          </tr>
+          <tr>
+            <td class="label">ライセンス</td><td>授権金（IPライセンス）</td>
+            <td class="r">26.2</td><td class="r">24.3</td><td class="r">92.6%</td><td class="r">20.3</td>
+            <td class="muted">ほぼ原価ゼロ事業。MD授権89%・アニメ11%。維新1社で32.7%（好園地経由）。台湾PL計上分のみ。日本ライセンシーROYは日本アカウント計上。</td>
+          </tr>
+          <tr class="subtotal">
+            <td colspan="2">3本柱　計</td>
+            <td class="r">146.3</td><td class="r">95.1</td><td class="r">65.0%</td><td class="r">75.3</td>
+            <td class="muted">粗利合計95.1M vs 共通費99.2M → 差引▲4.1M。黒字化まであと一歩。</td>
+          </tr>
+
+          <tr class="group-header"><td colspan="7">収益事業　その他</td></tr>
+          <tr>
+            <td class="label">物販</td><td>周邊商品（巧連智商品統合後）</td>
+            <td class="r">23.0</td><td class="r">10.1</td><td class="r">43.9%</td><td class="r">5.3</td>
+            <td class="muted">旧月刊講座在庫（巧連智商品）を管理会計上統合。統合前粗利率50.3%は過大表示だった。舞台劇会場物販42%が最大チャネル（LC8T管理外）。在庫リスク・ERP科目変更はI-10参照。</td>
+          </tr>
+          <tr>
+            <td class="label">物販</td><td>Mirafeel</td>
+            <td class="r">2.0</td><td class="r">0.9</td><td class="r">45.3%</td><td class="r">0.3</td>
+            <td class="muted">Web・TM・団購の3チャネルのみ。日本製紙おむつ・台湾独占販売。FY26/3月P&G契約終了で巧虎マーケティング解禁。LC8Tエコシステムの完成度バロメーター。</td>
+          </tr>
+          <tr>
+            <td class="label">デジタル</td><td>巧連智數位経典</td>
+            <td class="r">7.3</td><td class="r">6.8</td><td class="r">93.6%</td><td class="neg">▲0.5</td>
+            <td class="muted">挖貝費用NTD5.4M（初年度限定）が赤字主因。年額サブスク12ヶ月案分構造。単独販売力なし→Pixsee合購専案（FY26下半期・400組目標）で在庫消化と新規獲得を同時達成予定。</td>
+          </tr>
+          <tr>
+            <td class="label">YT広告</td><td>其他（新媒體）</td>
+            <td class="r">2.5</td><td class="r">2.5</td><td class="r">100%</td><td class="r">1.4</td>
+            <td class="muted">主体はYouTube広告収入NTD1.94M（月平均NTD176K）。巧虎CH登録者約250万人（本社保有）。認知維持インフラ。</td>
+          </tr>
+          <tr class="subtotal">
+            <td colspan="2">その他　計</td>
+            <td class="r">34.8</td><td class="r">20.3</td><td class="r">58.4%</td><td class="r">7.1</td>
+            <td></td>
+          </tr>
+
+          <tr class="group-header"><td colspan="7">共通費（按分なし）</td></tr>
+          <tr>
+            <td class="label">人件費</td><td>給与・賞与等</td>
+            <td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="neg">▲46.6</td>
+            <td class="muted">51人組織。駐在員給与は月▲3.5M JPY（JPY換算時に別途乗る）。削減不可。</td>
+          </tr>
+          <tr>
+            <td class="label">販售費用</td><td>委託・広告・促銷等</td>
+            <td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="neg">▲24.6</td>
+            <td class="muted">委託處理62.2%（元凱NTD4.2M・直達NTD3.2M）。促銷費21.8%・広告10.3%。</td>
+          </tr>
+          <tr>
+            <td class="label">一般管理費</td><td>租金・折舊等</td>
+            <td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="neg">▲28.0</td>
+            <td class="muted">租金41.7%（翔得捷倉庫NTD4.9M・今後正規価格に増加）。折舊30.4%はEBITDA加戻対象。</td>
+          </tr>
+          <tr class="subtotal">
+            <td colspan="2">共通費　計</td>
+            <td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="neg">▲99.2</td>
+            <td class="muted">3本柱粗利95.1M vs 共通費99.2M → ▲4.1M。</td>
+          </tr>
+
+          <tr class="grand-total">
+            <td colspan="2">全社　総計</td>
+            <td class="r">181.1</td><td class="r">115.4</td><td class="r">63.8%</td><td class="neg">▲10.3</td>
+            <td class="muted">特損調整後▲5.8M／EBITDA+0.3M</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        ※ 金額単位：百万NTD（小数第1位）。営業利益は共通費を各事業に按分せず一括表示。<br>
+        ※ 周邊商品は旧月刊講座在庫（巧連智商品）を管理会計上統合した数値（2026-05-10確定）。ERP科目変更は別途対応（タスクボードI-10）。<br>
+        ※ データ出典：ERP（PLシート）・財務儀表板LiteCUBE・舞台劇票房統計・授権金廠商明細・共通費取引先確認表・YT収入ファイル。全データの整合確認済み。<br>
+        ※ Confluence pageID: 595132424（📊 FY25 全社事業別P&L コンテキスト大全）
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ F-01 全社費用サマリー ══ -->
+<div id="F-01" class="page-content">
+  <div class="kpi-grid">
+    <div class="kpi accent"><div class="kpi-label">全社費用合計</div><div class="kpi-val">133.4M</div><div class="kpi-sub">売上181.1Mの73.7%</div></div>
+    <div class="kpi"><div class="kpi-label">売上原価</div><div class="kpi-val">58.0M</div><div class="kpi-sub">⚠️ 事業別分解未完了</div></div>
+    <div class="kpi"><div class="kpi-label">営業費用</div><div class="kpi-val">55.0M</div><div class="kpi-sub">直課30.4+共通24.6</div></div>
+    <div class="kpi"><div class="kpi-label">人件費</div><div class="kpi-val">46.9M</div><div class="kpi-sub">99%共通費</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="section-num">F-01</span><span class="section-title">全社費用サマリー</span><span class="section-note">⚠️ 暫定版・売上原価I-14完了後に更新</span></div>
+
+    <div class="alert">
+      <strong>このセクションは分析途中のため暫定版。</strong>売上原価の事業別分解（I-14）および物流費計上ロジックの確認（I-13）が完了次第、全面更新する。参照資料：FY25_費用構造レポート.html。
+    </div>
+
+    <table>
+      <thead><tr><th>費用区分</th><th class="r">金額</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td class="name">売上原価</td><td class="r">58.0M</td><td><span class="badge badge-warn">事業別分解未完了（I-14）</span></td></tr>
+        <tr><td class="name">営業費用（販售費）</td><td class="r">55.0M</td><td>事業直課30.4M ＋ 共通費24.6M</td></tr>
+        <tr><td class="name">一般管理費</td><td class="r">31.5M</td><td>共通費28.0M ＋ 事業直課3.5M</td></tr>
+        <tr><td class="name">人件費</td><td class="r">46.9M</td><td>共通費46.6M ＋ 事業直課0.3M</td></tr>
+        <tr class="total"><td>全社費用合計</td><td class="r">133.4M</td><td>売上181.1Mの73.7%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ F-02 営業費用 ══ -->
+<div id="F-02" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">F-02</span><span class="section-title">営業費用 55.0M　事業別×科目別</span></div>
+
+    <div class="chart-card"><div class="chart-title">事業別 営業費用構成（百万NTD）</div><div class="chart-wrap tall"><canvas id="chart-F-02"></canvas></div></div>
+
+    <table>
+      <thead><tr><th>事業／区分</th><th class="r">委託</th><th class="r">廣告</th><th class="r">促銷</th><th class="r">佣金</th><th class="r">運送</th><th class="r">他</th><th class="r">合計</th></tr></thead>
+      <tbody>
+        <tr><td class="name">學習商品</td><td class="r">0.7</td><td class="r">3.1</td><td class="r">2.1</td><td class="r">1.9</td><td class="r">1.1</td><td class="r">0.2</td><td class="r"><strong>9.2</strong></td></tr>
+        <tr><td class="name">周邊（巧連智統合）</td><td class="r">0.6</td><td class="r">0.9</td><td class="r">0.3</td><td class="r">0.0</td><td class="r">3.0</td><td class="r">0.1</td><td class="r"><strong>4.9</strong></td></tr>
+        <tr><td class="name">Mirafeel</td><td class="r">0.1</td><td class="r">0.3</td><td class="r">0.1</td><td class="r">0.0</td><td class="r">0.1</td><td class="r">0.1</td><td class="r"><strong>0.6</strong></td></tr>
+        <tr><td class="name">巧連智數位経典</td><td class="r">1.9</td><td class="r">4.4</td><td class="r">0.0</td><td class="r">1.1</td><td class="r">0.0</td><td class="r">0.1</td><td class="r"><strong>7.4</strong></td></tr>
+        <tr><td class="name">舞台劇</td><td class="r">0.5</td><td class="r">0.6</td><td class="r">1.2</td><td class="r">0.1</td><td class="r">0.3</td><td class="r">0.5</td><td class="r"><strong>3.4</strong></td></tr>
+        <tr><td class="name">授権金</td><td class="r">0.0</td><td class="r">0.0</td><td class="r">0.0</td><td class="r">3.5</td><td class="r">0.1</td><td class="r">0.3</td><td class="r"><strong>3.9</strong></td></tr>
+        <tr><td class="name">その他・YT</td><td class="r">0.8</td><td class="r">0.3</td><td class="r">0.0</td><td class="r">0.0</td><td class="r">0.0</td><td class="r">0.1</td><td class="r"><strong>1.2</strong></td></tr>
+        <tr class="subtotal"><td>事業直課 計</td><td class="r">4.6</td><td class="r">9.6</td><td class="r">3.7</td><td class="r">6.6</td><td class="r">4.6</td><td class="r">1.3</td><td class="r"><strong>30.4</strong></td></tr>
+        <tr><td class="name">共通費</td><td class="r">15.3</td><td class="r">2.5</td><td class="r">5.4</td><td class="r">0.0</td><td class="r">0.2</td><td class="r">1.2</td><td class="r"><strong>24.6</strong></td></tr>
+        <tr class="total"><td>全社合計</td><td class="r">19.9</td><td class="r">12.1</td><td class="r">9.1</td><td class="r">6.6</td><td class="r">4.8</td><td class="r">2.5</td><td class="r">55.0</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info">
+      <strong>構造的特徴：</strong>
+      <ul style="margin:6px 0 0 18px">
+        <li>巧連智數位経典の費用7.4Mのうち<strong>5.4Mが貝殼放大（挖貝）への初年度限定支払い</strong>。FY26以降ゼロ</li>
+        <li>授権金の佣金支出3.5Mは好園地への代理店手数料中心（3.1M・手数料率約13%）</li>
+        <li>共通費の促銷費5.4M・學習商品の促銷費1.9Mの大半が廠商名「-----」表記で内容不明（A-2）</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ F-03 一般管理費 ══ -->
+<div id="F-03" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">F-03</span><span class="section-title">一般管理費 31.5M</span><span class="section-note">共通費28.0M（90%）+ 事業直課3.5M</span></div>
+
+    <table>
+      <thead><tr><th>科目</th><th class="r">金額</th><th class="r">構成比</th><th>主要内容</th></tr></thead>
+      <tbody>
+        <tr><td class="name">租金支出</td><td class="r">11.7M</td><td class="r">37.1%</td><td>翔得捷倉庫4.9M / 第二計劃オフィス2.6M / 數位通サーバー室0.9M / 駐車場等2.3M</td></tr>
+        <tr><td class="name">折舊費用</td><td class="r">8.5M</td><td class="r">27.0%</td><td>EBITDA加戻し対象。下半期から月次逓減（月78万→55万）。FY26以降さらに減少</td></tr>
+        <tr><td class="name">手續費</td><td class="r">4.4M</td><td class="r">14.0%</td><td>舞台劇3.0M（年代網際チケット手数料・準変動費）／共通費1.3M廠商不明</td></tr>
+        <tr><td class="name">雜費</td><td class="r">3.5M</td><td class="r">11.2%</td><td>國稅局1.4M / 奇煜科技0.3M / 快克利0.3M</td></tr>
+        <tr><td class="name">勞務費</td><td class="r">1.5M</td><td class="r">4.9%</td><td>資誠聯合（PwC台湾）1.0M</td></tr>
+        <tr><td class="name">保険・水電・他</td><td class="r">1.9M</td><td class="r">5.8%</td><td>富邦産物保険0.5M / 武昌街水電0.5M</td></tr>
+        <tr class="total"><td>合計</td><td class="r">31.5M</td><td class="r">100%</td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert"><strong>翔得捷物流の倉庫賃料4.9MはFY26以降正規価格に増加予定。固定費上昇リスクとして管理が必要。</strong></div>
+    <div class="good"><strong>折舊8.5MはEBITDA換算時の加戻し対象。</strong>月次が下半期から逓減しており、FY26以降も継続して減少する見込み。<strong>自然なEBITDA改善要因。</strong></div>
+  </div>
+</div>
+
+<!-- ══ F-04 人件費 ══ -->
+<div id="F-04" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">F-04</span><span class="section-title">人件費 46.9M</span><span class="section-note">51名・99%共通費計上</span></div>
+
+    <table>
+      <thead><tr><th>科目</th><th class="r">金額</th><th class="r">構成比</th></tr></thead>
+      <tbody>
+        <tr><td class="name">薪資（基本給）</td><td class="r">35.1M</td><td class="r">74.8%</td></tr>
+        <tr><td class="name">獎金（賞与）</td><td class="r">5.1M</td><td class="r">10.8%</td></tr>
+        <tr><td class="name">法定福利金</td><td class="r">3.9M</td><td class="r">8.4%</td></tr>
+        <tr><td class="name">退休金準備</td><td class="r">1.9M</td><td class="r">4.0%</td></tr>
+        <tr><td class="name">職工福利金・教育訓練</td><td class="r">1.1M</td><td class="r">2.3%</td></tr>
+        <tr><td class="name">獎金準備（引当調整）</td><td class="r">▲0.5M</td><td class="r">—</td></tr>
+        <tr class="total"><td>合計</td><td class="r">46.9M</td><td class="r">100%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info"><strong>月次特徴：</strong>通常月3.1〜3.9M（月平均3.9M）で安定。<strong>202603（3月）のみ8.9Mと突出</strong>——年度末賞与の一括計上が主因。</div>
+    <div class="alert"><strong>削減不可の固定費。</strong>駐在員給与は月▲3.5M JPY別途計上（JPY換算時に追加）。<strong>FY26の管理指標は「一人あたり営業利益のFY25対比向上」</strong>——人員数は変えず利益を増やす方向での改善が前提。</div>
+  </div>
+</div>
+
+<!-- ══ F-05 物流費 ══ -->
+<div id="F-05" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">F-05</span><span class="section-title">物流費コスト構造</span><span class="section-note">⚠️ 分析中（I-13完了後更新）</span></div>
+
+    <div class="alert"><strong>以下は現時点で判明している数値と構造的仮説の記録。</strong>I-13（物流費計上ロジック確認）完了後に更新する。</div>
+
+    <table>
+      <thead><tr><th>費目</th><th class="r">金額</th><th>計上区分</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td class="name">翔得捷物流 倉庫賃料</td><td class="r">4.9M</td><td>共通費・一管費</td><td>事業按分なし。FY26以降正規価格に増加予定</td></tr>
+        <tr><td class="name">翔得捷物流 運送委託</td><td class="r">3.0M</td><td>事業別・営業費用</td><td>周邊1.8M / 學習0.9M / Mirafeel0.1M / 他0.2M</td></tr>
+        <tr><td class="name">その他物流業者</td><td class="r">1.9M</td><td>事業別・営業費用</td><td>運晟・外貿貨運等。巧連智商品・舞台劇</td></tr>
+        <tr class="total"><td>物流費 全社合計</td><td class="r">9.9M</td><td>—</td><td>売上181.1Mの5.5%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-head" style="margin-top:18px"><span class="section-num">商品群</span><span class="section-title">商品群別 発送費・数量・単価</span></div>
+    <table>
+      <thead><tr><th>商品群</th><th class="r">販売数量</th><th class="r">発送費</th><th class="r">発送費率</th><th class="r">1個あたり</th></tr></thead>
+      <tbody>
+        <tr><td class="name">學習商品</td><td class="r">20,219個</td><td class="r">1.1M</td><td class="r">1.9%</td><td class="r">約56 NTD</td></tr>
+        <tr><td class="name">周邊商品（巧連智統合）</td><td class="r">55,850個</td><td class="r">3.0M</td><td class="r">13.1%</td><td class="r">約54 NTD</td></tr>
+        <tr><td class="name">Mirafeel</td><td class="r">2,243個</td><td class="r">0.1M</td><td class="r">5.4%</td><td class="r">約60 NTD</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert">
+      <strong>未確認の構造的問題（I-13）：</strong>
+      <ul style="margin:6px 0 0 18px">
+        <li>学習商品と周邊商品を同時購入した場合の発送費が周邊商品側に計上されている可能性</li>
+        <li>倉庫賃料4.9Mが全社共通費に一括計上され事業別物流コスト全体像が把握できていない（按分試算：周邊3.5M・學習1.3M・Mirafeel0.1M）</li>
+        <li>周邊の舞台劇会場販売分（8.8M・42%）は現地手渡しのため発送費ゼロと推定されるが確認未済</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ O-01 組織図（台北支社_組織図.htmlをインライン埋め込み） ══ -->
+<div id="O-01" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">O-01</span><span class="section-title">台北支社 組織図</span><span class="section-note">AIC4 / v3</span></div>
+
+    <style>
+      .org-embed{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN','Noto Sans CJK TC',sans-serif;font-size:13px;color:#1a1a1a;background:#F5F4F0;padding:20px 16px;border-radius:8px;border:1px solid var(--border)}
+      .org-embed *,.org-embed *::before,.org-embed *::after{box-sizing:border-box;margin:0;padding:0}
+      .org-embed .org-header{margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #DDD9D2}
+      .org-embed .org-title{font-size:16px;font-weight:500;margin-bottom:4px}
+      .org-embed .org-meta{font-size:11px;color:#888}
+      .org-embed .dept-block{border:1px solid #DDD9D2;border-radius:10px;overflow:hidden;margin-bottom:12px}
+      .org-embed .dept-header{padding:10px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;gap:8px}
+      .org-embed .dept-header:hover{filter:brightness(0.96)}
+      .org-embed .dept-title{font-size:13px;font-weight:500}
+      .org-embed .dept-sub{font-size:11px;opacity:.75;margin-top:2px}
+      .org-embed .dept-meta{display:flex;align-items:center;gap:8px}
+      .org-embed .count-badge{font-size:11px;font-weight:500;padding:2px 9px;border-radius:10px;white-space:nowrap}
+      .org-embed .chevron{font-size:11px;transition:transform .2s;color:inherit}
+      .org-embed .chevron.open{transform:rotate(180deg)}
+      .org-embed .dept-body{display:none;padding:10px 14px 14px;background:#fff}
+      .org-embed .dept-body.open{display:block}
+      .org-embed .head-row{display:flex;align-items:flex-start;gap:10px;padding-bottom:8px;margin-bottom:10px;border-bottom:.5px solid #E8E6E0}
+      .org-embed .avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:1px}
+      .org-embed .head-name{font-size:13px;font-weight:500}
+      .org-embed .head-role{font-size:11px;color:#666;margin-top:2px;line-height:1.55}
+      .org-embed .team-block{margin-bottom:10px}
+      .org-embed .team-block:last-child{margin-bottom:0}
+      .org-embed .team-label{font-size:11px;font-weight:500;color:#666;padding:3px 8px;background:#F5F4F0;border-radius:4px;margin-bottom:5px;letter-spacing:.02em}
+      .org-embed .member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:4px}
+      .org-embed .member{border-radius:6px;border:.5px solid #E0DDD8;background:#fff;cursor:pointer;overflow:hidden}
+      .org-embed .member-top{display:flex;align-items:center;gap:6px;padding:5px 8px}
+      .org-embed .member:hover .member-top{background:#F5F4F0}
+      .org-embed .m-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+      .org-embed .m-name{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+      .org-embed .m-flag{font-size:10px;color:#999;margin-left:auto;flex-shrink:0;white-space:nowrap}
+      .org-embed .m-arrow{font-size:10px;color:#bbb;margin-left:4px;flex-shrink:0;transition:transform .18s}
+      .org-embed .member.expanded .m-arrow{transform:rotate(180deg)}
+      .org-embed .m-mission{display:none;font-size:11px;color:#555;line-height:1.65;padding:5px 8px 7px 20px;border-top:.5px solid #E8E6E0;background:#FAFAF8}
+      .org-embed .member.expanded .m-mission{display:block}
+      .org-embed .bottom-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+      .org-embed .bottom-grid .dept-block{margin-bottom:0}
+      .org-embed .org-footer{margin-top:20px;padding-top:12px;border-top:.5px solid #DDD9D2;font-size:11px;color:#aaa;display:flex;flex-wrap:wrap;gap:14px}
+      .org-embed .d-gm .dept-header{background:#2C2C2A;color:#D3D1C7}
+      .org-embed .d-gm .count-badge{background:#444441;color:#D3D1C7}
+      .org-embed .d-gm .avatar{background:#D3D1C7;color:#2C2C2A}
+      .org-embed .d-gm .dept-sub{color:#888780}
+      .org-embed .d-shohin .dept-header{background:#EBF3FC;color:#0C447C}
+      .org-embed .d-shohin .count-badge{background:#B5D4F4;color:#0C447C}
+      .org-embed .d-shohin .avatar{background:#B5D4F4;color:#0C447C}
+      .org-embed .d-shohin .m-dot{background:#378ADD}
+      .org-embed .d-mktg .dept-header{background:#EEEDFE;color:#3C3489}
+      .org-embed .d-mktg .count-badge{background:#CECBF6;color:#3C3489}
+      .org-embed .d-mktg .avatar{background:#CECBF6;color:#3C3489}
+      .org-embed .d-mktg .m-dot{background:#7F77DD}
+      .org-embed .d-cx .dept-header{background:#FDF2E2;color:#633806}
+      .org-embed .d-cx .count-badge{background:#FAC775;color:#633806}
+      .org-embed .d-cx .avatar{background:#FAC775;color:#633806}
+      .org-embed .d-cx .m-dot{background:#BA7517}
+      .org-embed .d-finance .dept-header{background:#E3F5EF;color:#085041}
+      .org-embed .d-finance .count-badge{background:#9FE1CB;color:#085041}
+      .org-embed .d-finance .avatar{background:#9FE1CB;color:#085041}
+      .org-embed .d-finance .m-dot{background:#1D9E75}
+      .org-embed .d-it .dept-header{background:#FAECE7;color:#712B13}
+      .org-embed .d-it .count-badge{background:#F5C4B3;color:#712B13}
+      .org-embed .d-it .avatar{background:#F5C4B3;color:#712B13}
+      .org-embed .d-it .m-dot{background:#D85A30}
+      .org-embed .d-admin .dept-header{background:#FBEAF0;color:#72243E}
+      .org-embed .d-admin .count-badge{background:#F4C0D1;color:#72243E}
+      .org-embed .d-admin .avatar{background:#F4C0D1;color:#72243E}
+      .org-embed .d-admin .m-dot{background:#D4537E}
+    </style>
+
+    <div class="org-embed">
+      <div class="org-header">
+        <div class="org-title">🏢 台北支社 組織図</div>
+        <div class="org-meta">全51名（AIC4準拠）　処ヘッダーをクリックで開閉 / メンバー名をクリックで職務詳細を展開　v3 / 2026-05-10</div>
+      </div>
+
+      <div class="dept-block d-gm">
+        <div class="dept-header" onclick="toggleDept(this)">
+          <div><div class="dept-title">総経理室</div><div class="dept-sub">経営戦略・全社統括</div></div>
+          <div class="dept-meta"><span class="count-badge">6名</span><span class="chevron">▼</span></div>
+        </div>
+        <div class="dept-body">
+          <div class="head-row">
+            <div class="avatar">小</div>
+            <div>
+              <div class="head-name">小沼和幸（総経理）</div>
+              <div class="head-role">旧事業モデルからIP×SKU×データ会社への転換を主導。FY26 EBITDA-SW +5百万円達成・FY27計画策定・単品／舞台劇／IP授権の収益確立・コスト最適化・組織生産性向上を推進。</div>
+            </div>
+          </div>
+          <div class="team-block">
+            <div class="team-label">〔経営戦略組〕</div>
+            <div class="member-grid">
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot" style="background:#888780"></div><div class="m-name">王詩雅</div><div class="m-flag">KPI・BI</div><div class="m-arrow">▾</div></div><div class="m-mission">彙整事業KPI與經營數據，建置財務儀表板，並協助推動AI工具應用與知識管理。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot" style="background:#888780"></div><div class="m-name">張育菱</div><div class="m-flag">BCL・LC8T</div><div class="m-arrow">▾</div></div><div class="m-mission">推動新客名單(BCL)增長策略，整合LINE與CDP數據以執行自動化行銷(LC8T)，並協助新事業開發與跨部門專案協調。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot" style="background:#888780"></div><div class="m-name">陳少琪</div><div class="m-flag">LINE OA</div><div class="m-arrow">▾</div></div><div class="m-mission">規劃新客招募活動與異業合作，策劃LBCL活動，並負責公司LINE官方帳號(OA)之維運管理。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot" style="background:#888780"></div><div class="m-name">阿比留華</div><div class="m-flag">研修・LC8T</div><div class="m-arrow">▾</div></div><div class="m-mission">LC8TのL&Cパートへ参画し、全体コミュニケーションフロー改善・DB価値向上に貢献。支社運営基盤業務（契約関連・情報セキュリティ）の課題を明文化し改善を実行。P=O×N×CV-Iフレームに基づくLC8T改善施策の立案・実行も担う。（本社派遣研修生・3等級）</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot" style="background:#888780"></div><div class="m-name">竹下友梨</div><div class="m-flag">研修・案件推進</div><div class="m-arrow">▾</div></div><div class="m-mission">駐在員として関わる案件（ライセンス・日本良品販売）を推進し、支社メンバーの主体性を引き出しながら契約締結・売上貢献につなげる。IP以外の日本企業コラボによるビジネス拡大プランの立案も担う。（本社派遣研修生・3等級）</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dept-block d-shohin">
+        <div class="dept-header" onclick="toggleDept(this)">
+          <div><div class="dept-title">商品事業処</div><div class="dept-sub">學習商品開発 / 品牌授権 / 表演活動</div></div>
+          <div class="dept-meta"><span class="count-badge">12名</span><span class="chevron">▼</span></div>
+        </div>
+        <div class="dept-body">
+          <div class="head-row">
+            <div class="avatar">江</div>
+            <div><div class="head-name">江美齡（処長）</div><div class="head-role">統籌商品事業處之營運管理與專案推進，確保部門目標達成與經營效益。</div></div>
+          </div>
+          <div class="team-block">
+            <div class="team-label">〔學習商品開発組〕</div>
+            <div class="member-grid">
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">陳瓊芳</div><div class="m-flag">PD</div><div class="m-arrow">▾</div></div><div class="m-mission">統籌學習商品之整體開發策略，管控專案時程與成本利潤，確保商品具備市場競爭力。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">于安平</div><div class="m-flag">教材</div><div class="m-arrow">▾</div></div><div class="m-mission">負責學習教材之企劃與製作，規劃內容架構與學習設計，並管控跨媒材製作流程與品質。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">陳勝朋</div><div class="m-flag">YT</div><div class="m-arrow">▾</div></div><div class="m-mission">經營管理官方YouTube頻道、數位學習網及App平台，負責影音內容之剪輯製作與跨平台宣傳。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">陳乃菁</div><div class="m-flag">教材</div><div class="m-arrow">▾</div></div><div class="m-mission">負責套組商品之企劃與品質管理，整合繪本、影音及教具等多媒體設計，確保教育目標與使用者體驗一致。</div></div>
+            </div>
+          </div>
+          <div class="team-block">
+            <div class="team-label">〔品牌授権策略組〕</div>
+            <div class="member-grid">
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">謝惠琪</div><div class="m-flag">IP</div><div class="m-arrow">▾</div></div><div class="m-mission">開發具獲利潛力之授權商品與合作夥伴，規劃巧虎夢想樂園營運策略，以及影音內容之二次利用與授權業務。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">劉玉珊</div><div class="m-flag">楽園</div><div class="m-arrow">▾</div></div><div class="m-mission">開發與評估潛在授權合作夥伴，策劃授權活動與展演，以提升品牌聲量與市場滲透率。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">陳伊柔</div><div class="m-flag">活動</div><div class="m-arrow">▾</div></div><div class="m-mission">執行商品、空間及活動之授權業務，負責周邊商品製作與跨部門專案協作。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">陳怡如</div><div class="m-flag">周邊</div><div class="m-arrow">▾</div></div><div class="m-mission">處理對日中之影像二次使用申請，負責周邊商品之採購、製作及跨境電商商品開發。</div></div>
+            </div>
+          </div>
+          <div class="team-block">
+            <div class="team-label">〔表演活動組〕</div>
+            <div class="member-grid">
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">沈美君</div><div class="m-flag">舞台</div><div class="m-arrow">▾</div></div><div class="m-mission">統籌年度舞台劇製作與巡演計畫，管理劇團合作、票務銷售及電影發行等相關業務。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">藍靜儀</div><div class="m-flag">物販</div><div class="m-arrow">▾</div></div><div class="m-mission">負責各類公演（音樂会/舞台劇）之現場商品販售與庫存管理，並執行活動廣宣視覺設計與製作物管理。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">林欣亭</div><div class="m-flag">広宣</div><div class="m-arrow">▾</div></div><div class="m-mission">執行表演活動之整合行銷（網路宣傳/異業贊助），統籌前台票務、顧客接待及會員管理作業。</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dept-block d-mktg">
+        <div class="dept-header" onclick="toggleDept(this)">
+          <div><div class="dept-title">整合行銷処</div><div class="dept-sub">デジタル行銷 / 通路整合 / SNS・EC</div></div>
+          <div class="dept-meta"><span class="count-badge">10名</span><span class="chevron">▼</span></div>
+        </div>
+        <div class="dept-body">
+          <div class="head-row">
+            <div class="avatar">劉</div>
+            <div><div class="head-name">劉靜芸（処長）</div><div class="head-role">統籌整體行銷策略與營收目標，優化品牌溝通與市場推廣成效，並協調跨部門資源以促進團隊成長。</div></div>
+          </div>
+          <div class="team-block">
+            <div class="team-label">〔數位行銷組〕</div>
+            <div class="member-grid">
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">陳筱昀</div><div class="m-flag">全通路</div><div class="m-arrow">▾</div></div><div class="m-mission">策劃數位行銷策略與推廣節奏，管理行銷預算並優化廣告成效，負責KOL與異業合作洽談。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">鍾明雯</div><div class="m-flag">Web</div><div class="m-arrow">▾</div></div><div class="m-mission">負責巧虎學習館之活動規劃與營運，制定新商品上市策略，並運用GA4進行數據分析與庫存管理。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">陳思嘉</div><div class="m-flag">広告</div><div class="m-arrow">▾</div></div><div class="m-mission">經營Shopee官方商城，優化學習商品之數位廣告投放策略以提升轉換率。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">曹舒涵</div><div class="m-flag">SNS</div><div class="m-arrow">▾</div></div><div class="m-mission">經營官方社群媒體(IG/FB)，推廣數位典藏學習網，並執行學習商品之KOL團購業務。</div></div>
+            </div>
+          </div>
+          <div class="team-block">
+            <div class="team-label">〔通路整合組〕</div>
+            <div class="member-grid">
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">周宜柔</div><div class="m-flag">LTV</div><div class="m-arrow">▾</div></div><div class="m-mission">負責品牌官網與Shopline平台之營運維護，策劃社群與廣告推廣活動，並透過數據分析優化銷售策略。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">郭怡梅</div><div class="m-flag">官網</div><div class="m-arrow">▾</div></div><div class="m-mission">執行EDM行銷發送，負責官網與Shopline系統之整合優化，並追蹤銷售數據以支援決策。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">張菀庭</div><div class="m-flag">会員</div><div class="m-arrow">▾</div></div><div class="m-mission">負責Mirafeel尿布系列之品牌行銷與銷售管理，包含預算控管、成效追蹤及異業合作規劃。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">鍾佳臻</div><div class="m-flag">成長</div><div class="m-arrow">▾</div></div><div class="m-mission">經營孕媽咪Facebook粉絲專頁，策劃團購選品與社群互動活動，並洽談異業合作以拓展線上商機。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">李佳霖</div><div class="m-flag">APP</div><div class="m-arrow">▾</div></div><div class="m-mission">負責生活周邊商品與新產品（如寶寶粥）之行銷推廣，並經營Baby Mine App之用戶體驗與活動策劃。</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dept-block d-cx">
+        <div class="dept-header" onclick="toggleDept(this)">
+          <div><div class="dept-title">CX計劃処</div><div class="dept-sub">LTV戦略 / CS電話営業 / 顧客体験設計</div></div>
+          <div class="dept-meta"><span class="count-badge">12名</span><span class="chevron">▼</span></div>
+        </div>
+        <div class="dept-body">
+          <div class="head-row">
+            <div class="avatar">鮑</div>
+            <div><div class="head-name">鮑慧芬（処長）</div><div class="head-role">規劃整體顧客體驗(CX)流程，設計各接觸點（如LINE、電話）之溝通腳本與互動節奏，以提升顧客信任度。</div></div>
+          </div>
+          <div class="team-block">
+            <div class="team-label">〔LTV戦略組〕</div>
+            <div class="member-grid">
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">賴純美</div><div class="m-flag">CRM</div><div class="m-arrow">▾</div></div><div class="m-mission">管理智能客服系統與CRM標籤策略，規劃自動化互動(ibo)流程，並產出高潛力名單以支援銷售轉換。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">郭姿伶</div><div class="m-flag">タグ</div><div class="m-arrow">▾</div></div><div class="m-mission">制定0-7歲會員之名單活化策略，設計分齡內容推播與互動機制，以精準推薦適合之學習商品。</div></div>
+            </div>
+          </div>
+          <div class="team-block">
+            <div class="team-label">〔CS戦略組〕（電話営業・カスタマーサービス）</div>
+            <div class="member-grid">
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">鄭心怡</div><div class="m-flag">TL</div><div class="m-arrow">▾</div></div><div class="m-mission">帶領電話銷售團隊執行精準行銷，設計銷售話術與商品組合策略，致力達成業績目標並提升客單價。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">張秀美</div><div class="m-arrow">▾</div></div><div class="m-mission">執行電話銷售業務，負責訂單處理、帳款回收及相關行政作業。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">傅暄</div><div class="m-arrow">▾</div></div><div class="m-mission">執行電話銷售業務，負責訂單處理、帳款回收及相關行政作業。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">黃秋如</div><div class="m-arrow">▾</div></div><div class="m-mission">執行電話銷售業務，提供高品質售後諮詢服務，並主動挖掘顧客需求以推薦合適教材。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">嚴雅怡</div><div class="m-arrow">▾</div></div><div class="m-mission">處理顧客客訴與疑難排解，提供專業諮詢以安撫顧客情緒，並同時執行電話銷售業務。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">莊雅涵</div><div class="m-arrow">▾</div></div><div class="m-mission">致電客戶推薦適齡教材，處理訂單配送、資料修改等售後服務，並負責Shopee聊聊客服回應。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">張金葵</div><div class="m-arrow">▾</div></div><div class="m-mission">執行客戶服務與商品行銷推廣業務。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">黃鈺茹</div><div class="m-arrow">▾</div></div><div class="m-mission">執行電話銷售業務，處理顧客抱怨與售後服務，確保顧客滿意度。</div></div>
+              <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">許世芬</div><div class="m-arrow">▾</div></div><div class="m-mission">執行商品行銷推廣，並負責客戶信箱(Email)之諮詢回覆。</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-grid">
+        <div class="dept-block d-finance">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div><div class="dept-title">財務処</div><div class="dept-sub">帳務・税務・対日報告</div></div>
+            <div class="dept-meta"><span class="count-badge">3名</span><span class="chevron">▼</span></div>
+          </div>
+          <div class="dept-body">
+            <div class="head-row">
+              <div class="avatar">中</div>
+              <div>
+                <div class="head-name">中智玄（処長）</div>
+                <div class="head-role">FY26損益管理・日本良品販売収益モデル検証・ライセンス収益確立。竹下・阿比留への業務移管と属人化解消を推進。</div>
+              </div>
+            </div>
+            <div class="team-block">
+              <div class="team-label">〔財務組〕</div>
+              <div class="member-grid">
+                <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">傅貞甄</div><div class="m-flag">月次</div><div class="m-arrow">▾</div></div><div class="m-mission">執行資金預估與現金流管理，規劃付款排程與審核流程，確保帳務合規並支援內部稽核。</div></div>
+                <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">許珮珊</div><div class="m-flag">帳務</div><div class="m-arrow">▾</div></div><div class="m-mission">負責帳務處理、稅務申報及結帳作業，執行預算編列與費用控管，並優化財務作業流程。</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dept-block d-it">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div><div class="dept-title">資訊事業処</div><div class="dept-sub">IT基盤・システム統合</div></div>
+            <div class="dept-meta"><span class="count-badge">4名</span><span class="chevron">▼</span></div>
+          </div>
+          <div class="dept-body">
+            <div class="head-row">
+              <div class="avatar">白</div>
+              <div><div class="head-name">白如雪（処長）</div><div class="head-role">管理資訊基礎架構(Infra)與機房維運，統籌LINE行銷推播技術支援及虛擬化平台(VMware)管理。</div></div>
+            </div>
+            <div class="team-block">
+              <div class="team-label">〔資訊組〕</div>
+              <div class="member-grid">
+                <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">吳家慶</div><div class="m-flag">DB</div><div class="m-arrow">▾</div></div><div class="m-mission">擔任SQL Server DBA，負責資料庫之效能優化、資安維護與備份管理，並開發ETL與報表系統。</div></div>
+                <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">戴詠</div><div class="m-flag">統合</div><div class="m-arrow">▾</div></div><div class="m-mission">負責企業應用系統之分析、設計與開発，規劃系統架構並執行全生命週期之技術支援與維運。</div></div>
+                <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">吳昌儒</div><div class="m-flag">新</div><div class="m-arrow">▾</div></div><div class="m-mission">（新進員工）負責全公司員工IT支援（Help Desk）、業務工具管理、基礎架構建置與資訊安全管理。</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dept-block d-admin">
+          <div class="dept-header" onclick="toggleDept(this)">
+            <div><div class="dept-title">総管理処</div><div class="dept-sub">人事・総務・法務・物流</div></div>
+            <div class="dept-meta"><span class="count-badge">4名</span><span class="chevron">▼</span></div>
+          </div>
+          <div class="dept-body">
+            <div class="head-row">
+              <div class="avatar">范</div>
+              <div><div class="head-name">范巧惠（処長）</div><div class="head-role">統籌人力資源、總務行政、法務合規及物流管理，建構完善之後勤支援體系以協助公司營運。</div></div>
+            </div>
+            <div class="team-block">
+              <div class="team-label">〔統籌整合組〕</div>
+              <div class="member-grid">
+                <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">鄧宏毅</div><div class="m-flag">法務</div><div class="m-arrow">▾</div></div><div class="m-mission">負責企業法務管理，包含侵権処理、合約審閱、個資法規遵循及法律風險評估。</div></div>
+                <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">蔡品媛</div><div class="m-flag">HR</div><div class="m-arrow">▾</div></div><div class="m-mission">執行人力資源管理（選用育留），策劃公司內部活動，並推動AI工具之社內應用。</div></div>
+                <div class="member" onclick="toggleMember(this)"><div class="member-top"><div class="m-dot"></div><div class="m-name">林昀萱</div><div class="m-flag">物流</div><div class="m-arrow">▾</div></div><div class="m-mission">負責物流倉儲協調與辦公室總務管理，維護辦公環境設備及管理零用金。</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="org-footer">
+        <span>全51名（処長6名・研修2名含む）</span>
+        <span>出典：AIC4（576880666）+ 社員タスクCSV + FY26目標設定シート（550305838）</span>
+        <span>v3 / 2026-05-10</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ L-00 月齢層別BCL保有 ══ -->
+<div id="L-00" class="page-content">
+  <div class="kpi-grid three">
+    <div class="kpi accent"><div class="kpi-label">BCL総数</div><div class="kpi-val">21.2万人</div><div class="kpi-sub">有効14.8万人（70%）</div></div>
+    <div class="kpi warn"><div class="kpi-label">カバー率（0〜10歳・163万人）</div><div class="kpi-val">9.1%</div><div class="kpi-sub">A1〜SS層は3〜8%</div></div>
+    <div class="kpi"><div class="kpi-label">月刊時代カバー率</div><div class="kpi-val">40〜90%</div><div class="kpi-sub">0歳40% / 2歳60% / 5歳90%</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="section-num">L-00</span><span class="section-title">月齢層別 BCL保有状況</span><span class="section-note">2026年3月末時点</span></div>
+
+    <div class="chart-card"><div class="chart-title">月齢層別 保有率（赤＝LTV最大層・最優先）</div><div class="chart-wrap"><canvas id="chart-L-00"></canvas></div></div>
+
+    <table>
+      <thead><tr><th>ランク</th><th>月齢</th><th class="r">人口</th><th class="r">BCL</th><th class="r">有効BCL</th><th class="r">保有率</th><th>コメント</th></tr></thead>
+      <tbody>
+        <tr><td class="name">A1 孕期</td><td>孕中</td><td class="r">76,481</td><td class="r">2,338</td><td class="r">2,028</td><td class="r"><strong>3.1%</strong></td><td><span class="badge badge-danger">最優先・獲得強化余地大</span></td></tr>
+        <tr><td class="name">S1</td><td>0〜6M</td><td class="r">50,475</td><td class="r">3,981</td><td class="r">3,210</td><td class="r"><strong>7.9%</strong></td><td><span class="badge badge-danger">LTV最大層・最優先</span></td></tr>
+        <tr><td class="name">SS</td><td>7〜12M</td><td class="r">52,091</td><td class="r">3,461</td><td class="r">2,870</td><td class="r"><strong>6.6%</strong></td><td><span class="badge badge-danger">LTV最大層・最優先</span></td></tr>
+        <tr><td class="name">S2</td><td>13〜24M</td><td class="r">132,633</td><td class="r">13,409</td><td class="r">10,985</td><td class="r">10.1%</td><td class="muted">—</td></tr>
+        <tr><td class="name">AA</td><td>25〜36M</td><td class="r">133,517</td><td class="r">14,209</td><td class="r">11,791</td><td class="r">10.6%</td><td class="muted">—</td></tr>
+        <tr><td class="name">A2</td><td>37〜60M</td><td class="r">291,456</td><td class="r">56,871</td><td class="r">43,681</td><td class="r">19.5%</td><td><span class="badge badge-info">既存DB活性化対象</span></td></tr>
+        <tr><td class="name">B</td><td>61M+</td><td class="r">753,378</td><td class="r">117,790</td><td class="r">73,784</td><td class="r">15.6%</td><td class="muted">旧月刊会員中心・卒業層</td></tr>
+        <tr class="total"><td>合計</td><td>—</td><td class="r">1,490,031</td><td class="r">212,059</td><td class="r">148,349</td><td class="r">9.1%</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert"><strong>転換率が最も高くLTVが最大の低月齢層が、DBで最も手薄なレイヤーになっている。</strong>A2層の19.5%は旧月刊会員の蓄積が主因であり、新規獲得によるものではない。</div>
+  </div>
+</div>
+
+<!-- ══ L-01 月次収集数 ══ -->
+<div id="L-01" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">L-01</span><span class="section-title">FY25月次BCL収集数・チャネル別</span></div>
+    <table>
+      <thead><tr><th>月</th><th class="r">自社WEB</th><th class="r">異業合作</th><th class="r">3rd</th><th class="r">SHOPLINE</th><th class="r">自然流入</th><th class="r">CC</th><th class="r">舞台劇</th><th class="r">合計</th></tr></thead>
+      <tbody>
+        <tr><td>4月</td><td class="r">3,608</td><td class="r">637</td><td class="r">—</td><td class="r">—</td><td class="r">330</td><td class="r">5</td><td class="r">—</td><td class="r"><strong>4,580</strong></td></tr>
+        <tr><td>5月</td><td class="r">657</td><td class="r">237</td><td class="r">1</td><td class="r">—</td><td class="r">160</td><td class="r">2</td><td class="r">—</td><td class="r">1,057</td></tr>
+        <tr><td>6月</td><td class="r">496</td><td class="r">351</td><td class="r">333</td><td class="r">—</td><td class="r">175</td><td class="r">2</td><td class="r">1</td><td class="r">1,358</td></tr>
+        <tr><td>7月</td><td class="r">767</td><td class="r">794</td><td class="r">225</td><td class="r">—</td><td class="r">224</td><td class="r">2</td><td class="r">3</td><td class="r">2,015</td></tr>
+        <tr><td>8月</td><td class="r">716</td><td class="r">327</td><td class="r">237</td><td class="r">1</td><td class="r">200</td><td class="r">1</td><td class="r">3</td><td class="r">1,485</td></tr>
+        <tr><td>9月</td><td class="r">1,124</td><td class="r">202</td><td class="r">149</td><td class="r">7</td><td class="r">189</td><td class="r">—</td><td class="r">—</td><td class="r">1,671</td></tr>
+        <tr><td>10月</td><td class="r">1,309</td><td class="r">246</td><td class="r">137</td><td class="r">42</td><td class="r">170</td><td class="r">3</td><td class="r">514</td><td class="r">2,421</td></tr>
+        <tr><td>11月</td><td class="r">1,145</td><td class="r">273</td><td class="r">92</td><td class="r">69</td><td class="r">197</td><td class="r">—</td><td class="r">—</td><td class="r">1,776</td></tr>
+        <tr><td>12月</td><td class="r">1,050</td><td class="r">811</td><td class="r">155</td><td class="r">34</td><td class="r">225</td><td class="r">14</td><td class="r">1</td><td class="r">2,290</td></tr>
+        <tr><td>1月</td><td class="r">960</td><td class="r">235</td><td class="r">234</td><td class="r">57</td><td class="r">308</td><td class="r">32</td><td class="r">325</td><td class="r">2,151</td></tr>
+        <tr><td>2月</td><td class="r">926</td><td class="r">567</td><td class="r">184</td><td class="r">383</td><td class="r">212</td><td class="r">20</td><td class="r">143</td><td class="r">2,435</td></tr>
+        <tr><td>3月</td><td class="r">2,816</td><td class="r">427</td><td class="r">—</td><td class="r">331</td><td class="r">490</td><td class="r">50</td><td class="r">410</td><td class="r"><strong>4,524</strong></td></tr>
+        <tr class="total"><td>年計</td><td class="r">15,574</td><td class="r">5,107</td><td class="r">1,747</td><td class="r">924</td><td class="r">2,880</td><td class="r">131</td><td class="r">1,400</td><td class="r">27,763</td></tr>
+        <tr class="subtotal"><td>構成比</td><td class="r">56.1%</td><td class="r">18.4%</td><td class="r">6.3%</td><td class="r">3.3%</td><td class="r">10.4%</td><td class="r">0.5%</td><td class="r">5.0%</td><td class="r">100%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert">
+      <ul style="margin:0 0 0 18px">
+        <li><strong>4月は自社WEBキャンペーン集中で突出（3,608人）</strong></li>
+        <li><strong>⑤舞台劇は公演月のみ（10月・1〜3月）。年間来場6万人に対して綁定1,400人＝綁定率2.3%</strong></li>
+        <li><strong>④CCは年計131人と機能不全に近い状態</strong></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ L-02 全体課題 ══ -->
+<div id="L-02" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num gap">L-02</span><span class="section-title">L段 全体課題（GAPの構造）</span></div>
+
+    <div class="issue-list">
+      <div class="issue-item"><span class="issue-tag tag-data">データ不可視</span><div class="issue-body">流入元・綁定時月齢・チャネル別綁定率が把握できておらず、量は見えるが質が見えない。<strong>21.2万人という数字の信頼性自体が問われる状態。</strong></div></div>
+      <div class="issue-item"><span class="issue-tag tag-quality">質の低下</span><div class="issue-body">コスト発生チャネル（異業種合作・サードパーティDB）ほどSS月齢率が低く離脱率が高い。<strong>プレゼント目当て綁定は「もらったら用済み」になる構造的問題。</strong></div></div>
+      <div class="issue-item"><span class="issue-tag tag-design">設計不在</span><div class="issue-body">自社媒体（SNS・YouTube・Baby Mine App）に露出計画がなく、コストゼロで動かせるはずのチャネルが未設計のまま放置。</div></div>
+      <div class="issue-item"><span class="issue-tag tag-exec">最高機会の未活用</span><div class="issue-body"><strong>年間6万人来場の舞台劇会場でのBCL化・タグ付けが未整備。</strong>接触温度が最も高い場でありながら最も未活用。</div></div>
+      <div class="issue-item"><span class="issue-tag tag-value">価値提案の弱さ</span><div class="issue-body">月刊廃刊後、顧客にとっての「なぜ綁定するのか」という理由が消えた。家長のタイプによって刺さる理由が異なるため単一の価値提案では不十分。</div></div>
+    </div>
+
+    <div class="alert"><strong>9%の原因は2つ：</strong>①接触できていない（投資額・チャネル設計の問題）、②接触しても綁定しない（価値提案の問題）。<strong>この2つは性質が異なり別々に対処が必要。</strong></div>
+  </div>
+</div>
+
+<!-- ══ L-03 収集ルート別 ══ -->
+<div id="L-03" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">L-03</span><span class="section-title">収集ルート別説明と課題</span><span class="section-note">最終導線：自社WEB→LINE綁定</span></div>
+
+    <table>
+      <thead><tr><th>ルート</th><th>コスト</th><th>主な課題</th></tr></thead>
+      <tbody>
+        <tr><td class="name">①-1 Meta広告</td><td>広告費発生（日額USD70上限）</td><td>ROI把握・流入元トラッキング未整備（I-1）</td></tr>
+        <tr><td class="name">①-2 自社媒体</td><td>コストなし</td><td>露出計画が現状存在しない</td></tr>
+        <tr><td class="name">①-3 異業種合作</td><td>リソース交換</td><td>SS月齢率低・離脱率高（プレゼント目当て）</td></tr>
+        <tr><td class="name">①-4 サードパーティDB</td><td>獲得件数Fee</td><td>効果的協業先未発見・新規開拓停止中</td></tr>
+        <tr><td class="name">② SHOPLINE</td><td>—</td><td><span class="badge badge-warn">⚠️生年月日未取得の可能性</span></td></tr>
+        <tr><td class="name">③ 自然流入</td><td>コストなし</td><td>増加方策の有無自体が不明</td></tr>
+        <tr><td class="name">④ CC（客服経由）</td><td>コストなし</td><td>綁定率・運用実態未把握</td></tr>
+        <tr><td class="name">⑤ 舞台劇会場</td><td>コストなし</td><td><strong>年間6万人来場で最も未活用</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ L-04 やるべきこと ══ -->
+<div id="L-04" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num mission">L-04</span><span class="section-title">L段 やるべきこと一覧（ミッション）</span></div>
+
+    <div class="issue-list">
+      <div class="issue-item"><span class="issue-tag tag-data">L-1</span><div class="issue-body">Meta広告のROI分析と最適投資額の決定（I-1連動）</div></div>
+      <div class="issue-item"><span class="issue-tag tag-data">L-2</span><div class="issue-body">流入元トラッキングの設計・実装</div></div>
+      <div class="issue-item"><span class="issue-tag tag-design">L-3</span><div class="issue-body">自社媒体（SNS・YouTube・Baby Mine App）の露出計画策定</div></div>
+      <div class="issue-item"><span class="issue-tag tag-data">L-4</span><div class="issue-body">SHOPLINE綁定時の生年月日収集可否の確認と対応（L-新A）</div></div>
+      <div class="issue-item"><span class="issue-tag tag-exec">L-5</span><div class="issue-body">CC経由の綁定率確認と運用改善（L-新B）</div></div>
+      <div class="issue-item"><span class="issue-tag tag-design">L-6</span><div class="issue-body"><strong>舞台劇会場でのBCL化・タグ付け設計と徹底（最優先候補）</strong></div></div>
+      <div class="issue-item"><span class="issue-tag tag-data">L-7</span><div class="issue-body">自然流入増加の方策検討（L-新C）</div></div>
+      <div class="issue-item"><span class="issue-tag tag-value">L-8</span><div class="issue-body">綁定理由の価値提案設計（たたき台作成中・チーム議論予定）</div></div>
+      <div class="issue-item"><span class="issue-tag tag-quality">L-9</span><div class="issue-body">異業種合作チャネルのSS月齢率・離脱率改善</div></div>
+      <div class="issue-item"><span class="issue-tag tag-design">L-10</span><div class="issue-body">外部LP貼標の設計・実装（Super8連携・技術確認要）</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ C-01 Community現状 ══ -->
+<div id="C-01" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">C-01</span><span class="section-title">Community 現在の取り組み</span></div>
+
+    <div class="text-block">
+      <p>BCL有効会員に対して<strong>毎週金曜22時にLINE推播を行う自動育成旅程</strong>をSuper8経由で運用中。月齢×週次（W1〜W5）の<strong>35格マトリクス</strong>構造で、各月齢の育児トピックに合わせた三択インタラクションを設計。2025年9月に0〜12M層からスタートし、現在は0〜36Mまで拡張済み。</p>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-label">開封率（Q1均値）</div><div class="kpi-val">39.4%</div><div class="kpi-sub">3月：40.4%（安定）</div></div>
+      <div class="kpi"><div class="kpi-label">開封点击率</div><div class="kpi-val">21.4%</div><div class="kpi-sub">目標≥22%・改善余地</div></div>
+      <div class="kpi good"><div class="kpi-label">整体転換率</div><div class="kpi-val">8.1%</div><div class="kpi-sub">3月：9.3%・基線確立</div></div>
+      <div class="kpi"><div class="kpi-label">名単規模</div><div class="kpi-val">+47%</div><div class="kpi-sub">Q1で成長</div></div>
+    </div>
+
+    <div class="info">
+      <strong>判明している構造的問題：</strong>0M月齢・W3波次・家庭関係類話題の3軸に系統的な低転換率が確認済み。<strong>問題は標題設計（開封率）ではなく「話題内容が当下の需要に命中しているか」（開封点击率）。</strong>35格中CHANGE 10格・TWEAK 8格・KEEP 17格の調整草稿が4月より実行開始。<br>
+      <strong>「焦慮問句＋反転安撫＋具体承諾」のTop公式が開封率を決めることを実証済み。</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ══ C-02 精進テーマ ══ -->
+<div id="C-02" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num mission">C-02</span><span class="section-title">C段 精進テーマと今後の方向性</span></div>
+
+    <table>
+      <thead><tr><th>#</th><th>テーマ</th><th>現状</th><th>方向性</th></tr></thead>
+      <tbody>
+        <tr><td class="name">C-1</td><td>KPI設計</td><td>現状比較で追跡中</td><td>四半期ごとの成效回顧定例化・実績の積み上げからKPI設定</td></tr>
+        <tr><td class="name">C-2</td><td>話題命中率</td><td>家庭関係類・0M・W3波次に系統的な低転換</td><td>Top公式を35格全体に標準化</td></tr>
+        <tr><td class="name">C-3</td><td>タグ付け体系化</td><td>推播後のタグ付与状況が未整理</td><td>タグ付与数・種別をC段の成效指標として可視化・8/T段への連携品質向上</td></tr>
+        <tr><td class="name">C-4</td><td>運用の透明化</td><td>月次レビュー定例フロー未整備</td><td>月次レビュー定例化・チーム全体で数字を追う体制</td></tr>
+        <tr><td class="name">C-5</td><td>綁定理由との連動</td><td>LINE綁定後の「なぜ続けるか」未設計</td><td>L-8と連動・綁定→継続的関係構築の一気通貫</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ 8-00 Super8戦略 ══ -->
+<div id="8-00" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">8-00</span><span class="section-title">Super8 定義と大戦略（A・B並走）</span></div>
+
+    <div class="text-block">
+      <p>LC8TのCで関係を深め・タグを積んだBCLに対して、いよいよ具体的なセールスアクションを起こす段階。Super8を主プラットフォームとして、<strong>AとBの2戦略を常時並走</strong>させる。</p>
+    </div>
+
+    <table>
+      <thead><tr><th>区分</th><th>戦略</th><th>担当</th><th>対象</th><th>性格</th></tr></thead>
+      <tbody>
+        <tr><td class="name"><span class="badge" style="background:#FCE6D6;color:#CF6A2E;border:1px solid #E8B89A">A</span></td><td>月齢・商品別学習商品販売（ACTS）</td><td>LTV戦略組</td><td>月齢別・個人単位</td><td>BCL登録時の月齢をキーに自動配信。反応タグを蓄積し未購買の高意欲者をTELへ。<strong>常時稼働エンジン</strong></td></tr>
+        <tr><td class="name"><span class="badge badge-info">B</span></td><td>SP活動</td><td>整合行銷処</td><td>BCL全体・条件絞込</td><td>學習・周邊・Mirafeel対象に時期・商品・イベントに合わせたキャンペーン施策</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert"><strong>KOL団購・蝦皮はBCLへの流入チャネルとして位置づけ。8段の販売施策には含めない。</strong>KOL経由購買者はShopline結単時に月齢情報取得→LINE綁定→BCL化→ACTSへ接続するフィードバックループを設計する（現状：LINE登録未启動のため未機能）。</div>
+  </div>
+</div>
+
+<!-- ══ 8-01 A/Bの理想 ══ -->
+<div id="8-01" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num idea">8-01</span><span class="section-title">A/Bそれぞれの理想の状態</span></div>
+
+    <div class="frame-block"><div class="frame-label idea">A理想<br>ACTS</div>
+      <div class="frame-body">
+        BCL登録と同時に月齢が記録され、Super8上で自動的に発達段階別の配信シナリオが起動。<strong>2ヶ月×4回の配信で教育コンテンツを届けながらタグを積み、Web自購に誘導。</strong>配信を受け取り・タグが一定以上蓄積された未購買者が自動でTELリストに上がり、CX計劃処が高確率でクロージング。<strong>人力介入なしにLC8Tの因果鎖が自動で回転する状態。</strong>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label idea">B理想<br>SP活動</div>
+      <div class="frame-body">
+        各SP施策がSuper8上でタグと連動し<strong>「誰に・何を・いつ・なぜ送るか」が精準に設計</strong>されている。各施策の効果がGA4とSuper8で可視化され、施策ごとのROIが即時算出できる。施策後の未購買者に対して自動フォローシナリオが起動。<strong>同一DBへの接触がタグ分眾設計により最適化され、名単疲乏が管理されている状態。</strong>
+      </div>
+    </div>
+
+    <div class="danger"><strong>ACTSが動かないとLC8T全体の因果鎖が起動しない。</strong>タグ蓄積ゼロ→高意欲者特定不可→TEL効率が上がらないという構造が現状続いている。</div>
+  </div>
+</div>
+
+<!-- ══ 8-02 ACTS手動実験教訓 ══ -->
+<div id="8-02" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">8-02</span><span class="section-title">ACTS手動実験の教訓と再設計方針</span></div>
+
+    <div class="info">現在は「手動ACTS実験段階」から「<strong>Super8自動化を前提とした本格再設計段階</strong>」へ移行する時点。手動運用で蓄積した教訓を活かし、配信方針<strong>「2ヶ月・隔週4回」</strong>を基本方針として自動ACTSを再設計する。</div>
+
+    <div class="text-block">
+      <h4>手動ACTSで実証された有効設計</h4>
+      <ul>
+        <li><strong>月齢区間：</strong>単一月齢では母数約500筆と少なく効果不安定。<strong>3ヶ月齢区間</strong>で母数確保し結果が安定</li>
+        <li><strong>話題サイクル：</strong>A（育兒話題）→B（育兒痛点）→C（商品情報・導購）の3サイクル×3波＝計9回接触</li>
+        <li><strong>休眠期：</strong>3サイクル終了後の無反応者に2ヶ月休眠。リスト疲弊・ブロック率上昇を抑制</li>
+        <li><strong>TEL連動：</strong>各波のクリック反応者をA級（高意願）・B級（有興趣）に分類し翌月TEL作戦名単へ。タグ精度が高いほどCV率向上（A級11.59%・営銷点击高意願者20〜33%）</li>
+        <li><strong>作戦タイミング：</strong>TEL作戦は早期（第2批）の方がOP深耕時間を確保でき成果が出やすい</li>
+      </ul>
+    </div>
+
+    <table>
+      <thead><tr><th>月</th><th class="r">作戦数</th><th class="r">応答数</th><th class="r">応答率</th><th class="r">売上（NTD）</th></tr></thead>
+      <tbody>
+        <tr><td>3月実績</td><td class="r">3,403</td><td class="r">198</td><td class="r">5.82%</td><td class="r">1,103,538</td></tr>
+        <tr><td>4月目標</td><td class="r">3,003</td><td class="r">254</td><td class="r">8.46%</td><td class="r">2,116,151</td></tr>
+        <tr><td>5月目標</td><td class="r">3,500</td><td class="r">202</td><td class="r">5.77%</td><td class="r">2,112,722</td></tr>
+      </tbody>
+    </table>
+
+    <div class="good"><strong>再設計の基本方針（確定）：</strong>2ヶ月・隔週4回。手動ACTSの教訓を活かしSuper8自動旅程として実装する。月齢区間・話題サイクル・休眠期・TEL連動の各設計を自動化前提で再構築する段階。</div>
+  </div>
+</div>
+
+<!-- ══ 8-04 SP活動 ══ -->
+<div id="8-04" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">8-04</span><span class="section-title">SP活動 現状と課題</span></div>
+
+    <table>
+      <thead><tr><th>カテゴリ</th><th class="r">FY25件数</th><th>主な対象商品</th></tr></thead>
+      <tbody>
+        <tr><td class="name">育兒便利店档期</td><td class="r">9件</td><td>学習商品・周邊・Mirafeel</td></tr>
+        <tr><td class="name">Baby Mine APP月次快閃</td><td class="r">6件</td><td>Mirafeel・学習商品</td></tr>
+        <tr><td class="name">商品上市通知</td><td class="r">5件</td><td>新商品</td></tr>
+        <tr><td class="name">社群UGC活動</td><td class="r">3件</td><td>学習商品</td></tr>
+        <tr><td class="name">異業合作</td><td class="r">2件</td><td>Mirafeel・数位典藏</td></tr>
+      </tbody>
+    </table>
+
+    <div class="issue-list">
+      <div class="issue-item"><span class="issue-tag tag-design">連動不足</span><div class="issue-body">配信のみ使用。SP後の未購買者への自動フォローシナリオが未設計</div></div>
+      <div class="issue-item"><span class="issue-tag tag-data">計測不可</span><div class="issue-body">GA4未配置のため各SP施策のROI・導購効果が計測不可</div></div>
+      <div class="issue-item"><span class="issue-tag tag-risk">疲乏リスク</span><div class="issue-body">A（ACTS）・B（SP）・TM外撥が同一DBに集中。接触過多による離脱リスク</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 8-05 Super8システム構成 ══ -->
+<div id="8-05" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">8-05</span><span class="section-title">Super8 システム構成と精進テーマ</span><span class="section-note">年費約17万NTD</span></div>
+
+    <table>
+      <thead><tr><th>機能</th><th>規格</th><th>稼働状況</th></tr></thead>
+      <tbody>
+        <tr><td class="name">タグ上限</td><td>1,000個</td><td><span class="badge badge-warn">付与状況未把握</span></td></tr>
+        <tr><td class="name">自動旅程（Journeys）</td><td>上限5条</td><td><span class="badge badge-warn">稼働数未確認</span></td></tr>
+        <tr><td class="name">SuperLink</td><td>10条×10分項×100連結</td><td>部分稼働</td></tr>
+        <tr><td class="name">遊戲モジュール</td><td>1種</td><td><span class="badge badge-danger">未活用</span></td></tr>
+        <tr><td class="name">MGM好友推薦</td><td>人数無制限</td><td><span class="badge badge-danger">未活用</span></td></tr>
+        <tr><td class="name">Shopline串接</td><td>購入済み</td><td><span class="badge badge-good">稼働中</span></td></tr>
+        <tr><td class="name">GA4串接</td><td>購入済み</td><td><span class="badge badge-danger">未配置</span></td></tr>
+        <tr><td class="name">LINE登録（Shopline側）</td><td>購入済み</td><td><span class="badge badge-danger">未启動</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="issue-list">
+      <div class="issue-item"><span class="issue-tag tag-exec">S-1 最優先</span><div class="issue-body"><strong>LINE登録の启動。</strong>IT・Shopline・LINE三方連携で早期启動。精準分眾・自動旅程・KOL購買者BCL化の前提条件</div></div>
+      <div class="issue-item"><span class="issue-tag tag-data">S-2</span><div class="issue-body">GA4串接の配置。社群施策・SP活動のROI可視化</div></div>
+      <div class="issue-item"><span class="issue-tag tag-design">S-3</span><div class="issue-body">自動旅程の本格設計。ACTSとの連動を含め5条の旅程設計を優先</div></div>
+      <div class="issue-item"><span class="issue-tag tag-data">S-4</span><div class="issue-body">タグ体系の整備。購買・来源・行動・月齢の4軸でタグ設計を整備</div></div>
+      <div class="issue-item"><span class="issue-tag tag-design">S-5</span><div class="issue-body">MGM好友推薦の活用。2026〜27年導入設計。自生流量の最大レバー</div></div>
+    </div>
+
+    <div class="info"><strong>整合行銷処の3年ロードマップ：</strong>2025〜26年「基盤整合（Super8×Shopline×LINE技術統合）」→ 2026〜27年「LINE販売化・MGM導入・会員集点制度」→ 2026〜28年「顧問型售服転換・CRM依存脱却・自動化完成」</div>
+  </div>
+</div>
+
+<!-- ══ T-00 TEL定義と戦略 ══ -->
+<div id="T-00" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">T-00</span><span class="section-title">TEL 定義と戦略</span><span class="section-note">担当：CX計劃処・CS戦略組8名</span></div>
+
+    <div class="text-block">
+      <p>LC8Tの最終段。<strong>Web自購を前提</strong>としたうえで、L→C→8段を経てタグ・行動シグナルが蓄積された<strong>「確実な興味関心があるが購入に至っていない」顧客に対してのみ電話という強いアクションを起こす</strong>段階。</p>
+    </div>
+
+    <div class="frame-block"><div class="frame-label idea">大原則</div>
+      <div class="frame-body">
+        電話は顧客にとって最も強い介入。「商品の存在・価値・教育効果・価格を理解している」という条件を満たした顧客が対象。<strong>闇雲にかけるのではなく、L→C→8段での活化によって事前に暖場された顧客にのみアプローチ</strong>することでCV最大化とリスト疲弊防止を両立。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label idea">理想</div>
+      <div class="frame-body">
+        ACTSによるタグ蓄積→高意欲者が自動でTELリストに上がる→OPが質の高い名单のみに集中して高CV率で成約→未成約者は自動でC・8段に戻り再育成サイクルへ。<strong>人力を高精度なリストに集中させることで8名のOPの生産性を最大化する状態。</strong>
+      </div>
+    </div>
+
+    <div class="alert"><strong>リスト疲弊は売上の短期最大化と長期BCL資産の毀損のトレードオフを生む。</strong>高精度なリスト設計こそがCV最大化と顧客関係の健全性を両立させる鍵。</div>
+  </div>
+</div>
+
+<!-- ══ T-01 リスト構成 ══ -->
+<div id="T-01" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">T-01</span><span class="section-title">リスト構成と設計</span><span class="section-note">毎月3,000〜3,500筆生成</span></div>
+
+    <table>
+      <thead><tr><th>名單種別</th><th>概要</th><th>特徴</th></tr></thead>
+      <tbody>
+        <tr><td class="name">商品月齢活化（A/B/C反応者）</td><td>3サイクル経たクリック反応者・A級B級分類</td><td>タグ精度高いほどCV率向上（A級11%超）</td></tr>
+        <tr><td class="name">生日名單</td><td>11M・23M・35M・47M・59M生誕月対象</td><td>動物占卜→商品優惠の2波活化済</td></tr>
+        <tr><td class="name">行銷推播開啟</td><td>直近の推播を開封・クリック</td><td>明確な興味シグナル保有者</td></tr>
+        <tr><td class="name">LINE選單</td><td>Rich Menuクリック者</td><td>能動的アクション経験者</td></tr>
+        <tr><td class="name">前月未消化名單</td><td>前月作戦未接触の繰越</td><td>品質保ちながら無駄なく消化</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-head" style="margin-top:18px"><span class="section-num">3分類</span><span class="section-title">活化対象の3分類</span></div>
+    <table>
+      <thead><tr><th>対象</th><th>方向性</th><th>活化アプローチ</th></tr></thead>
+      <tbody>
+        <tr><td class="name">忠誠会員（学習商品購買済）</td><td>次段階商品への誘導・回購</td><td>次月齢適合商品の先行通知・限期回購優惠</td></tr>
+        <tr><td class="name">新BCL会員（LTV育成対象）</td><td>首購転換</td><td>綁定直後に首購優惠→2日後未点击者に再送</td></tr>
+        <tr><td class="name">未購買CRM名單保有</td><td>ブランド温度向上→購買誘導</td><td>育兒資訊・商品体験→活動優惠</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info"><strong>LINE暖場→TEL連動の実証例（8m-18m）：</strong>第1波：寶寶氣質心理測驗（参加率10.81%・749筆）→ 第2波：気質別専属建議卡＋商品導線（135筆）→ 第3波：CS外撥で気質に合わせた個性化話術。<strong>開場で「以前の活動参加」を話題にすることで陌生感を解消。</strong></div>
+  </div>
+</div>
+
+<!-- ══ T-02 実績と課題 ══ -->
+<div id="T-02" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">T-02</span><span class="section-title">現状実績と課題</span></div>
+
+    <div class="chart-card"><div class="chart-title">月次 TEL作戦応答率推移（FY25）</div><div class="chart-wrap"><canvas id="chart-T-02"></canvas></div></div>
+
+    <table>
+      <thead><tr><th>月</th><th class="r">作戦数</th><th class="r">応答数</th><th class="r">応答率</th><th>特記</th></tr></thead>
+      <tbody>
+        <tr><td>2504</td><td class="r">4,130</td><td class="r">238</td><td class="r">5.76%</td><td class="muted">一般名單中心</td></tr>
+        <tr><td>2505</td><td class="r">4,830</td><td class="r">621</td><td class="r"><strong>12.86%</strong></td><td class="muted">月刊訂戸中心・最高水準</td></tr>
+        <tr><td>2506</td><td class="r">5,001</td><td class="r">437</td><td class="r">8.74%</td><td class="muted">生日×月刊訂戸</td></tr>
+        <tr><td>2510</td><td class="r">4,070</td><td class="r">297</td><td class="r">7.30%</td><td class="muted">新品6週活化効果</td></tr>
+        <tr><td>2601</td><td class="r">4,108</td><td class="r">234</td><td class="r">5.70%</td><td class="muted">月齢個人化推薦導入</td></tr>
+        <tr><td>2603</td><td class="r">3,403</td><td class="r">198</td><td class="r">5.82%</td><td class="muted">手動ACTS稼働・1件@5,483</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info">
+      <strong>応答率を左右する主要因：</strong>
+      <ul style="margin:6px 0 0 18px">
+        <li><strong>名單品質：</strong>月刊訂戸など「ブランド親和性が高い」名單は最高応答率（12.86%）。タグ精度高い名單（A級）は11%超</li>
+        <li><strong>新品タイミング：</strong>新品上市タイミングでの活化が応答率を押し上げる（2510月7.30%）</li>
+        <li><strong>暖場設計：</strong>LINE活動参加→電話開場でその話題を活用することで陌生感を解消</li>
+      </ul>
+    </div>
+
+    <div class="issue-list">
+      <div class="issue-item"><span class="issue-tag tag-exec">運用負荷</span><div class="issue-body">リスト生成の全工程が手動。Super8自動旅程稼働で高意欲者の自動抽出が可能になるが未実装</div></div>
+      <div class="issue-item"><span class="issue-tag tag-risk">疲弊リスク</span><div class="issue-body">ACTS・SP・TELが同一DBに集中。接触頻度管理が未整備でリスト疲弊リスクが蓄積中</div></div>
+      <div class="issue-item"><span class="issue-tag tag-design">未設計</span><div class="issue-body">TEL後成約しなかった顧客をC・8段に戻す自動再育成シナリオが未設計</div></div>
+      <div class="issue-item"><span class="issue-tag tag-data">移行課題</span><div class="issue-body">「Super8ではタグ貼標ができない」技術制約を確認中（5/16期限）。発燒網モジュールで代替中</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ A-01 ACTS定義 ══ -->
+<div id="A-01" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num idea">A-01</span><span class="section-title">ACTS プロジェクト定義</span><span class="section-note">2026-05-07</span></div>
+
+    <div class="text-block">
+      <p style="font-size:16px;font-weight:600;color:var(--accent-orange);margin-bottom:10px"><strong>ACTS ＝ Age × Communication × Tag × Sales</strong></p>
+    </div>
+
+    <table>
+      <thead><tr><th style="width:14%">要素</th><th style="width:18%">意味</th><th>このプロジェクトでの役割</th></tr></thead>
+      <tbody>
+        <tr><td class="name">A（Age）</td><td>月齢</td><td>子どもの登録月齢をキーに配信シナリオを自動起動する</td></tr>
+        <tr><td class="name">C（Communication）</td><td>コミュニケーション</td><td>発達段階に沿った教育コンテンツで育児に寄り添い、LP（公式EC）へ誘導する</td></tr>
+        <tr><td class="name">T（Tag）</td><td>タグ付け</td><td>配信への反応をタグとして蓄積し、顧客の興味プロファイルを構築する</td></tr>
+        <tr><td class="name">S（Sales）</td><td>セールス</td><td>タグ履歴を基に高意向者を絞り込み、高効率・高CV電話営業を実施する</td></tr>
+      </tbody>
+    </table>
+
+    <div class="good">
+      <strong>このフェーズの最優先目標：人手を介さないWEB自主購買。</strong>配信は2ヶ月・4回、教育コンテンツから購買の背中押しへ<strong>グラデーション型</strong>で設計する。
+    </div>
+  </div>
+</div>
+
+<!-- ══ A-02 LC8T内位置づけ ══ -->
+<div id="A-02" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num idea">A-02</span><span class="section-title">LC8T全体構造における位置づけ</span></div>
+
+    <div class="text-block">
+      <p>LC8T＝<strong>L</strong>INE × <strong>C</strong>ommunity × Super<strong>8</strong> × <strong>T</strong>EL。台北支社の収益構造転換戦略TBBSの中核をなすBCL活化フレームワーク。</p>
+      <p style="font-weight:600;color:var(--accent-orange);margin-top:8px">ACTSの本質は、LC8TのC・8・Tの3機能をつなぐ<strong>自動化エンジン</strong>である。</p>
+    </div>
+
+    <div class="frame-block"><div class="frame-label">L</div>
+      <div class="frame-body"><strong>LINE／BCL収集。</strong>BCL登録を通じて顧客をLC8Tの起点に取り込む。<strong>登録時の子どもの月齢が、以降の全配信シナリオのキー</strong>となる。Lがなければその後のデータも接点も存在しない。</div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label">C&amp;8</div>
+      <div class="frame-body">
+        <strong>育児話題 → LP誘導 → WEB自主購買。</strong>BCL登録月齢をトリガーに、子どもの発達段階に沿った9商品の教育コンテンツを順番に自動配信。各メッセージには公式ECへのLPリンクを設置し、<strong>顧客がWEB上で自主的に購買するよう誘導</strong>。配信は2ヶ月・4回。<br>
+        配信への反応（開封・クリック・LP遷移）はすべて自動的にタグとして付与され、顧客DBに蓄積される。
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label">T</div>
+      <div class="frame-body">
+        <strong>高効率・高CV電話営業。</strong>「配信を受け取り・タグも蓄積されているが、まだWEB購買に至っていない」会員——これこそが<strong>確実に興味を持っているが未行動の最高価値層</strong>——をDBからリスト化し、集中的に電話営業をかける。タグ履歴を基に高意向者を絞り込むことで電話営業の効率とCVが大幅に向上。
+      </div>
+    </div>
+
+    <div class="danger">
+      <strong>ACTSが因果連鎖の起点である理由：</strong>配信シナリオがなければ → タグが蓄積されない → 高意向者を絞れない → 電話営業の効率が上がらない。<br>
+      <strong>ACTSが配信シナリオを自動で動かすことで、LC8T全体のループが回り始める。</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ══ A-03 9商品配信順序 ══ -->
+<div id="A-03" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">A-03</span><span class="section-title">9商品配信順序（発達テーマ順・確定）</span></div>
+
+    <table class="acts-table">
+      <thead><tr><th>順</th><th>商品名</th><th>発達テーマ</th><th class="r">対象年齢下限</th><th class="r">価格(NT$)</th><th class="r">P70</th></tr></thead>
+      <tbody>
+        <tr><td class="r">1</td><td class="name">點讀圖鑑</td><td>語彙啓蒙</td><td class="r">6M</td><td class="r">2,399</td><td class="r">23M</td></tr>
+        <tr><td class="r">2</td><td class="name">好習慣套組</td><td>生活習慣</td><td class="r">12M</td><td class="r">4,299</td><td class="r">23M</td></tr>
+        <tr><td class="r">3</td><td class="name">語彙智育套組</td><td>語彙知育</td><td class="r">12M</td><td class="r">4,900</td><td class="r">32M</td></tr>
+        <tr><td class="r">4</td><td class="name">好情緒EQ套組</td><td>情緒・人際</td><td class="r">30M</td><td class="r">2,199</td><td class="r">39M</td></tr>
+        <tr><td class="r">5</td><td class="name">英語Plus初階</td><td>英語啓蒙</td><td class="r">12M</td><td class="r">4,800</td><td class="r">34M</td></tr>
+        <tr><td class="r">6</td><td class="name">英語進階版</td><td>英語進階</td><td class="r">36M</td><td class="r">4,500</td><td class="r">44M</td></tr>
+        <tr><td class="r">7</td><td class="name">點讀大冒險</td><td>論理・集中</td><td class="r">36M</td><td class="r">2,999</td><td class="r">45M</td></tr>
+        <tr><td class="r">8</td><td class="name">數學套組</td><td>数感・論理</td><td class="r">42M</td><td class="r">3,200</td><td class="r">52M</td></tr>
+        <tr><td class="r">9</td><td class="name">注音拼音套組</td><td>就学準備</td><td class="r">54M</td><td class="r">3,200</td><td class="r">57M</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info">参考：月齢別配信タイムラインの詳細は <strong>ACTS_timeline.html</strong> を参照。</div>
+  </div>
+</div>
+
+<!-- ══ A-04 配信ロジック ══ -->
+<div id="A-04" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">A-04</span><span class="section-title">配信ロジック・切入月齢の設計思想</span></div>
+
+    <div class="frame-block"><div class="frame-label">配信<br>ロジック</div>
+      <div class="frame-body">
+        <ol style="margin-left:18px">
+          <li>登録時月齢が<strong>P70を超えている商品はスキップ</strong></li>
+          <li>配信開始月齢 ＝ MAX（登録時月齢, 対象年齢下限）</li>
+          <li>配信開始月齢がP70を超えていればスキップ</li>
+          <li>1商品あたり<strong>2ヶ月・4回配信（隔週1回）</strong></li>
+          <li>前商品終了後、次商品へ自動移行（スキップ判定を再実施）</li>
+          <li>配信終止基準はP70（変更可：P50/P60/P70/P75/P90）</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="frame-block"><div class="frame-label idea">切入<br>月齢の<br>思想</div>
+      <div class="frame-body">
+        <strong>対象年齢下限</strong>を切入起始月齢とする。<strong>WEB中央値ではない。</strong>WEB購買データはACTSなしで自然に購買が起きた月齢を反映しているに過ぎず、ACTSの役割は<strong>早期購買の誘発</strong>にある。<br>
+        <strong>KOLが中央値より4〜11M早く購買を誘発しているデータが根拠。</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ A-05 考慮点・残課題 ══ -->
+<div id="A-05" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">A-05</span><span class="section-title">考慮点・リスク・残課題</span></div>
+
+    <div class="issue-list">
+      <div class="issue-item"><span class="issue-tag tag-data">技術仕様</span><div class="issue-body"><strong>Super8技術仕様（確認待ち）。</strong>月齢フィールドの有無・シナリオ分岐の可否・相対タイムラインの動作を、詩雅さんがベンダーに確認中（<strong>期限：2026/5/16</strong>）。実装設計はその回答に依存</div></div>
+      <div class="issue-item"><span class="issue-tag tag-risk">配信頻度</span><div class="issue-body"><strong>配信頻度管理。</strong>1顧客が受け取る配信は最大9商品×4回＝36回。過剰配信によるブロックリスクは継続管理が必要</div></div>
+      <div class="issue-item"><span class="issue-tag tag-design">LP設計</span><div class="issue-body"><strong>LP設計。</strong>初期は1商品1LP（公式ECリンク）。将来的に配信段階（教育→背中押し）に応じた複数パターンへ</div></div>
+      <div class="issue-item"><span class="issue-tag tag-quality">高CV定義</span><div class="issue-body"><strong>高CV期待者の定義（未定義）。</strong>何のタグが何個以上で電話営業対象とするかは、ACTS実装完了後に蓄積データを基に定義</div></div>
+      <div class="issue-item"><span class="issue-tag tag-value">仮説値</span><div class="issue-body"><strong>設計パラメータはすべて仮説値。</strong>P70終端・対象年齢下限・配信4回は実績データによる継続的な見直しが前提</div></div>
+    </div>
+
+    <div class="section-head" style="margin-top:18px"><span class="section-num mission">残課題</span><span class="section-title">残課題（5項目）</span></div>
+    <div class="issue-list">
+      <div class="issue-item"><span class="issue-tag tag-exec">①</span><div class="issue-body"><strong>Super8ベンダー確認（期限：2026/5/16）：</strong>月齢フィールド・シナリオ分岐・相対タイムライン</div></div>
+      <div class="issue-item"><span class="issue-tag tag-exec">②</span><div class="issue-body">ベンダー回答後の作業：月齢固定ウィンドウテーブル正式版作成・商品一覧（551846247）更新・Super8シナリオ実装</div></div>
+      <div class="issue-item"><span class="issue-tag tag-design">③</span><div class="issue-body"><strong>コンテンツ・LP設計（未着手）：</strong>各商品・各回のメッセージ文面・画像・LPが未設計</div></div>
+      <div class="issue-item"><span class="issue-tag tag-data">④</span><div class="issue-body">パーセンタイル基準の検証：P70は仮説値。ACTS実装後3〜6ヶ月でCVデータを取り検証</div></div>
+      <div class="issue-item"><span class="issue-tag tag-data">⑤</span><div class="issue-body">高CV期待者の定義：ACTS実装完了後に蓄積データを基に定義</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TB-01 経営判断イシュー ══ -->
+<div id="TB-01" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num" style="background:var(--accent-red)">TB-01</span><span class="section-title">🔴 経営判断イシュー（意思決定が必要）</span></div>
+
+    <table>
+      <thead><tr><th style="width:6%">#</th><th style="width:24%">イシュー</th><th>背景・論点</th><th style="width:14%">ステータス</th></tr></thead>
+      <tbody>
+        <tr><td class="name">I-1</td><td><strong>BCL獲得広告投資水準の決定</strong></td><td>現状日額NT$70は過少との認識あり。低月齢BCL獲得と短期EBITDAのトレードオフをどう判断するか</td><td class="status-red">🔴 未解決</td></tr>
+        <tr><td class="name">I-2</td><td><strong>Meta広告の内製化判断</strong></td><td>代理店ブラックボックス化。内製化により中間コスト削減・スピード向上・実コスト強化が可能。素材制作は社内対応済</td><td class="status-red">🔴 未解決</td></tr>
+        <tr><td class="name">I-3</td><td><strong>主力學習商品のSKU拡大構想</strong></td><td>幼児教育の主要テーマをほぼカバーし尽くしており新規SKU開発余地縮小。拡大路線の構想を次セッションでインプット予定</td><td class="status-yellow">🟡 構想中</td></tr>
+        <tr><td class="name">I-4</td><td><strong>KOL別売上データの整備</strong></td><td>団購・KOL合計15.5M NTDのうち個別KOLの売上データが未整備。Shopline管理画面または通路整合組が保有</td><td class="status-red">🔴 未解決</td></tr>
+        <tr><td class="name">I-5</td><td><strong>周邊商品のSKU別粗利率可視化</strong></td><td>144SKUの粗利率がSKU別に把握できず経営判断できない状態。商品マスタ・仕入単価データとERPを連携</td><td class="status-red">🔴 未解決</td></tr>
+        <tr><td class="name">I-6</td><td><strong>Baby Mineの巧虎ブランド統合検討</strong></td><td>Baby Mineは5年前に独立ブランドで作ったが理由は現在消滅。月間アクティブ数百人と機能不全。担当リーダー提案待ち</td><td class="status-yellow">🟡 提案待ち</td></tr>
+        <tr class="warn-row"><td class="name">I-7</td><td><strong>AI巧虎PJ 利益計算ベース合意</strong></td><td>費用控除定義の双方合意条件が詰め切れているか確認必要。利益ゼロ圧縮リスク。修正条文案：pageID 490964160</td><td class="status-red">🔴 本社確認中</td></tr>
+        <tr class="warn-row"><td class="name">I-8</td><td><strong>AI巧虎PJ 契約相手法人確認</strong></td><td>臨界科技が別法人なのか関連会社なのか判然としない。法的基礎問題</td><td class="status-red">🔴 阿比留/育菱確認要</td></tr>
+        <tr class="warn-row"><td class="name">I-9</td><td><strong>AI巧虎PJ 行銷先行リスク</strong></td><td>FB連載・LaLaport実体活動・嘖嘖クラウドファンディングが走る一方、契約は本社確認中で未締結</td><td class="status-red">🔴 確認後判断</td></tr>
+        <tr><td class="name">I-10</td><td><strong>巧連智商品ERP科目変更・在庫リスク</strong></td><td>管理会計上は周邊商品に統合する方針確定。①ERP科目変更指示、②在庫消化複数年・処分損失リスク、簿価未把握</td><td class="status-red">🔴 経理指示要</td></tr>
+        <tr><td class="name">I-11</td><td><strong>巧連智數位経典 現場ヒアリング</strong></td><td>①月次新規契約数②累積会員数③累積未認識収益④艾得基客行銷⑤齊力樂門NTD268K計上理由</td><td class="status-red">🔴 ヒアリング要</td></tr>
+        <tr><td class="name">I-12</td><td><strong>數位典藏コンテンツ資産活用</strong></td><td>次の商品・サービス開発への活用は中長期経営課題</td><td class="status-yellow">🟡 別途議論</td></tr>
+        <tr><td class="name">I-13</td><td><strong>物流費の計上ロジック確認</strong></td><td>①運送費の事業別配賦ロジック不明②倉庫賃料4.9M共通費一括計上③1個あたり発送費が事業横断で均一。確認先：財務処（許珮珊）・物流（林昀萱）</td><td class="status-red">🔴 ヒアリング要</td></tr>
+        <tr><td class="name">I-14</td><td><strong>売上原価の事業別分解</strong></td><td>商品群別（學習・周邊・Mirafeel）の原価率・SKU別原価把握。I-5・I-13と合わせて正確な事業収益性の評価が可能になる</td><td class="status-red">🔴 データ整備要</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert">
+      <strong>AI巧虎PJ（I-7〜I-9）はリスク連動。</strong>契約未締結のまま行銷ロードマップが先行している構造を経営幹部全員で認識し、本社確認完了次第の判断準備を進めること。
+    </div>
+  </div>
+</div>
+
+<!-- ══ TB-02 コンテキスト構築進捗 ══ -->
+<div id="TB-02" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">TB-02</span><span class="section-title">🗺️ コンテキスト大全構築進捗（C-1〜C-13）</span></div>
+
+    <table>
+      <thead><tr><th style="width:6%">#</th><th>対象テーマ</th><th style="width:18%">ステータス</th><th>メモ</th></tr></thead>
+      <tbody>
+        <tr><td class="name">C-1</td><td>FY25 全社事業別P&L</td><td class="status-green">✅ 完了</td><td>pageID: 595132424</td></tr>
+        <tr><td class="name">C-2</td><td>物販①主力學習商品</td><td class="status-green">✅ 完了</td><td>v9</td></tr>
+        <tr><td class="name">C-3</td><td>物販②IP周邊商品</td><td class="status-green">✅ 完了</td><td>v9</td></tr>
+        <tr><td class="name">C-4</td><td>物販③共創SKU</td><td class="status-green">✅ 完了（暫定）</td><td>AI巧虎契約確定後に更新要</td></tr>
+        <tr><td class="name">C-5</td><td>物販④Mirafeel</td><td class="status-green">✅ 完了</td><td>v9</td></tr>
+        <tr><td class="name">C-6</td><td>舞台劇</td><td class="status-green">✅ 完了</td><td>v11・英語劇会場問題含</td></tr>
+        <tr><td class="name">C-7</td><td>IPライセンス事業</td><td class="status-green">✅ 完了（暫定）</td><td>v14・T-新A〜E後更新</td></tr>
+        <tr><td class="name">C-8</td><td>巧連智數位経典・巧連智商品</td><td class="status-green">✅ 完了（暫定）</td><td>I-11後更新要</td></tr>
+        <tr><td class="name">C-9</td><td>組織・人員構成</td><td class="status-green">✅ 完了</td><td>v15・AIC4：576880666参照</td></tr>
+        <tr><td class="name">C-10</td><td>費用・物流コスト構造</td><td class="status-green">✅ 完了（暫定）</td><td>I-13/I-14/A-2後更新</td></tr>
+        <tr><td class="name">C-11</td><td>BCL・顧客データ構造</td><td class="status-red">🔴 未着手</td><td>—</td></tr>
+        <tr><td class="name">C-12</td><td>LC8T業務フロー</td><td class="status-green">✅ 完了</td><td>v19・L-新A〜D残あり</td></tr>
+        <tr><td class="name">C-13</td><td>FY26予算・目標構造</td><td class="status-red">🔴 未着手</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ TB-03 PJ一覧 ══ -->
+<div id="TB-03" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">TB-03</span><span class="section-title">🧭🗄️📊 進行中PJ一覧</span></div>
+
+    <h4 style="margin:14px 0 8px">📊 ダッシュボード系</h4>
+    <table>
+      <thead><tr><th>PJ名</th><th>概要</th><th>期限</th><th>インフラ</th></tr></thead>
+      <tbody>
+        <tr><td class="name">⑤ 日次売上ダッシュボード</td><td>学習/周邊/MirafeelのSKU×チャネル可視化</td><td class="muted">—</td><td>GitHub+Netlify</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin:14px 0 8px">🧭 戦略系</h4>
+    <table>
+      <thead><tr><th>PJ名</th><th>概要</th><th>期限</th></tr></thead>
+      <tbody>
+        <tr><td class="name">① P=O×N×CV-Iマトリクス骨格</td><td>ACTS別9SKU縦軸を含む3パターンのマトリクス充填。ERPデータ＋社員ヒアリング</td><td class="muted">—</td></tr>
+        <tr><td class="name">③ 社員別担当業務のコンテキスト整理</td><td>担当変数（O/N/CV/I）の詳細含む</td><td class="muted">—</td></tr>
+        <tr class="warn-row"><td class="name">④ ACTSプロジェクト</td><td>9SKU×月齢別自動配信エンジン。Super8ベンダー確認中</td><td><strong>2026/05/16</strong></td></tr>
+        <tr><td class="name">⑦ LC8T経営意思決定ツール構想</td><td>目的・目標・P=O×N×CV-I確定済。Step 2進行中</td><td class="muted">—</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin:14px 0 8px">🗄️ データ系</h4>
+    <table>
+      <thead><tr><th>PJ名</th><th>概要</th></tr></thead>
+      <tbody>
+        <tr><td class="name">② ERPデータ各論の深掘り</td><td>物販SKU詳細・舞台劇内訳・授権金内訳・チャネル別収益構造</td></tr>
+        <tr><td class="name">⑥ 収益可視化PJ＋コンテキスト大全充実化</td><td>鼎新ERPデータ→事業別P&L把握。マトリクス充填・社員別業務整理</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ TB-04 確認待ち（IP） ══ -->
+<div id="TB-04" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">TB-04</span><span class="section-title">📌 確認・アクション待ち（IPライセンス事業）</span></div>
+
+    <table>
+      <thead><tr><th style="width:8%">#</th><th>確認事項</th><th>内容</th><th style="width:14%">ステータス</th></tr></thead>
+      <tbody>
+        <tr><td class="name">T-新A</td><td>瑞展創意（A-11）取引内容</td><td>MD授権として計上されているが内容不明</td><td class="status-red">🔴 未確認</td></tr>
+        <tr><td class="name">T-新B</td><td>幫寶適最終計上後ERP確認</td><td>202601以降202602〜603のERP計上有無</td><td class="status-red">🔴 未確認</td></tr>
+        <tr><td class="name">T-新C</td><td>維新の不定期計上ロジック</td><td>年間精算型か・大型案件一括か</td><td class="status-red">🔴 未確認</td></tr>
+        <tr><td class="name">T-新D</td><td>日本アカウントROY収入の全体像</td><td>台北支社管理IPから発生する日本アカウント収益の把握</td><td class="status-red">🔴 未着手</td></tr>
+        <tr><td class="name">T-新E</td><td>快閃店（IPmixer/艾品共創）</td><td>NDA締結済・企画詰め中。条件確認・契約・監修・製造・上線の各フェーズ管理</td><td class="status-yellow">🟡 進行中</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ TB-05 確認待ち（費用物流） ══ -->
+<div id="TB-05" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">TB-05</span><span class="section-title">📌 確認・アクション待ち（費用・物流）</span></div>
+
+    <table>
+      <thead><tr><th style="width:8%">#</th><th>確認事項</th><th>確認先</th><th style="width:14%">ステータス</th></tr></thead>
+      <tbody>
+        <tr><td class="name">A-1</td><td>AI巧虎PJ FB連載投稿の実施確認（4/11・4/25・5/9・5/23）</td><td>育菱さん</td><td class="status-red">🔴 未確認</td></tr>
+        <tr><td class="name">A-2</td><td>廠商名「-----」の内容確認（費用計上内訳）</td><td>財務処（許珮珊）</td><td class="status-red">🔴 未確認（4件）</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin:14px 0 8px">A-2 未確認内訳</h4>
+    <table>
+      <thead><tr><th>科目</th><th class="r">金額</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td class="name">共通費 促銷費</td><td class="r">5.1M</td><td>全件「-----」表記。内容不明</td></tr>
+        <tr><td class="name">學習商品 促銷費</td><td class="r">1.9M</td><td>大半が「-----」表記</td></tr>
+        <tr><td class="name">共通費 手續費</td><td class="r">1.2M</td><td>大半「-----」。銀行・決済手数料等と推定</td></tr>
+        <tr><td class="name">一般管理費 202504一括計上</td><td class="r">1.0M</td><td>4月のみ一括。年払い前払いか前年繰越か不明</td></tr>
+      </tbody>
+    </table>
+    <div class="info">舞台劇の手續費2.8Mは年代網際事業（チケット販売手数料）と確認済み。上記4件のみ残未確認。</div>
+  </div>
+</div>
+
+<!-- ══ TB-06 確認待ち（LC8T） ══ -->
+<div id="TB-06" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num">TB-06</span><span class="section-title">📌 確認・アクション待ち（LC8T・L段）</span></div>
+
+    <table>
+      <thead><tr><th style="width:8%">#</th><th>確認事項</th><th>内容</th><th style="width:14%">ステータス</th></tr></thead>
+      <tbody>
+        <tr><td class="name">L-新A</td><td>SHOPLINE綁定時の生年月日収集可否</td><td>購買時綁定で子の生年月日が取得できていない可能性。月齢別配信の前提データ欠落リスク</td><td class="status-red">🔴 未確認</td></tr>
+        <tr><td class="name">L-新B</td><td>CC経由の綁定率確認と運用実態</td><td>未綁定顧客に対してCC経由で確実に綁定できているか</td><td class="status-red">🔴 未確認</td></tr>
+        <tr><td class="name">L-新C</td><td>自然流入増加の方策検討</td><td>増加させる方策が存在するかどうか自体が不明</td><td class="status-red">🔴 未確認</td></tr>
+        <tr class="warn-row"><td class="name">L-新D</td><td>Super8 Journeys ACTS自動配信実装可否</td><td>月齢フィールド分岐・登録日からの相対時間軸の実装可否（ACTSプロジェクト自動化の前提条件）</td><td class="status-yellow">🟡 期限5/16</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ S-01 ミッション総覧 ══ -->
+<div id="S-01" class="page-content">
+  <div class="section">
+    <div class="section-head"><span class="section-num mission">S-01</span><span class="section-title">全社課題マップ（事業×GAP×ID 横断俯瞰）</span></div>
+
+    <div class="info"><strong>このページの読み方：</strong>本書全章のGAPを<strong>事業×GAPカテゴリ</strong>で再編集した俯瞰表。経営幹部はここから「自処の責任範囲のIDがどれか」を特定し、自分のミッションリストとして使うこと。<strong>IDをクリックする感覚でTB章・本編該当章へ戻れる。</strong></div>
+
+    <h4 style="margin:14px 0 8px">▸ 事業領域別ミッション</h4>
+    <table>
+      <thead><tr><th style="width:14%">事業</th><th style="width:24%">GAPカテゴリ</th><th>核となる課題</th><th style="width:14%">ID</th></tr></thead>
+      <tbody>
+        <tr><td class="name" rowspan="4">學習商品<br>P-01</td><td>BCL獲得投資</td><td>低月齢BCL獲得の広告投資水準決定</td><td><span class="badge badge-danger">I-1</span></td></tr>
+        <tr><td>マーケ内製化</td><td>Meta広告内製化判断</td><td><span class="badge badge-danger">I-2</span></td></tr>
+        <tr><td>SKU拡大</td><td>主力學習商品のSKU拡大構想</td><td><span class="badge badge-warn">I-3</span></td></tr>
+        <tr><td>データ整備</td><td>KOL別売上データの整備</td><td><span class="badge badge-danger">I-4</span></td></tr>
+
+        <tr><td class="name" rowspan="3">舞台劇<br>P-02</td><td>BCL化</td><td>会場BCL化・タグ付け（年6万人未活用）</td><td><span class="badge badge-info">L-6</span></td></tr>
+        <tr><td>会場確保</td><td>英語劇会場の代替確保</td><td><span class="badge badge-danger">緊急</span></td></tr>
+        <tr><td>計上区分</td><td>音楽劇・特別公演のERP科目確認</td><td><span class="badge badge-info">確認</span></td></tr>
+
+        <tr><td class="name" rowspan="5">授権金<br>P-03</td><td>取引内容</td><td>瑞展創意の取引内容確認</td><td><span class="badge badge-danger">T-新A</span></td></tr>
+        <tr><td>ERP計上</td><td>幫寶適最終計上後の確認</td><td><span class="badge badge-danger">T-新B</span></td></tr>
+        <tr><td>計上ロジック</td><td>維新の不定期計上ロジック</td><td><span class="badge badge-danger">T-新C</span></td></tr>
+        <tr><td>収益全体像</td><td>日本アカウントROY収入</td><td><span class="badge badge-danger">T-新D</span></td></tr>
+        <tr><td>新規案件</td><td>快閃店IPmixer/艾品共創</td><td><span class="badge badge-warn">T-新E</span></td></tr>
+
+        <tr><td class="name" rowspan="2">周邊<br>P-04</td><td>SKU管理</td><td>144SKUの粗利率可視化・在庫管理</td><td><span class="badge badge-danger">I-5</span></td></tr>
+        <tr><td>巧連智統合</td><td>ERP科目変更・在庫簿価把握</td><td><span class="badge badge-danger">I-10</span></td></tr>
+
+        <tr><td class="name" rowspan="3">共創SKU<br>P-05</td><td>契約定義</td><td>AI巧虎PJ 利益計算ベース合意</td><td><span class="badge badge-danger">I-7</span></td></tr>
+        <tr><td>契約相手</td><td>AI巧虎PJ 契約相手法人確認</td><td><span class="badge badge-danger">I-8</span></td></tr>
+        <tr><td>行銷リスク</td><td>AI巧虎PJ 行銷先行リスク管理</td><td><span class="badge badge-danger">I-9</span></td></tr>
+
+        <tr><td class="name">數位経典<br>P-07</td><td>現場ヒアリング</td><td>數位経典 5項目ヒアリング</td><td><span class="badge badge-danger">I-11</span></td></tr>
+        <tr><td class="name">Baby Mine</td><td>ブランド統合</td><td>巧虎ブランド統合検討</td><td><span class="badge badge-warn">I-6</span></td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin:14px 0 8px">▸ 機能領域別ミッション</h4>
+    <table>
+      <thead><tr><th style="width:14%">領域</th><th style="width:24%">GAPカテゴリ</th><th>核となる課題</th><th style="width:14%">ID</th></tr></thead>
+      <tbody>
+        <tr><td class="name" rowspan="4">L段<br>BCL</td><td>媒体ROI</td><td>Meta広告ROI分析</td><td><span class="badge badge-info">L-1</span></td></tr>
+        <tr><td>計測</td><td>流入元トラッキング</td><td><span class="badge badge-info">L-2</span></td></tr>
+        <tr><td>露出設計</td><td>自社媒体露出計画</td><td><span class="badge badge-info">L-3</span></td></tr>
+        <tr><td>価値提案</td><td>綁定理由の価値提案設計</td><td><span class="badge badge-info">L-8</span></td></tr>
+
+        <tr><td class="name" rowspan="2">C段</td><td>命中率</td><td>話題命中率・35格Top公式標準化</td><td><span class="badge badge-info">C-2</span></td></tr>
+        <tr><td>タグ体系</td><td>タグ付与状況の可視化</td><td><span class="badge badge-info">C-3</span></td></tr>
+
+        <tr><td class="name" rowspan="3">8段<br>Super8</td><td>LINE登録</td><td>LINE登録の启動（最優先）</td><td><span class="badge badge-danger">S-1</span></td></tr>
+        <tr><td>ROI計測</td><td>GA4串接配置</td><td><span class="badge badge-info">S-2</span></td></tr>
+        <tr><td>自動旅程</td><td>ACTSと5条旅程設計</td><td><span class="badge badge-info">S-3</span></td></tr>
+
+        <tr><td class="name" rowspan="2">T段<br>TEL</td><td>運用負荷</td><td>リスト生成自動化</td><td><span class="badge badge-info">運用</span></td></tr>
+        <tr><td>再育成</td><td>TEL後未成約の自動再育成シナリオ</td><td><span class="badge badge-info">設計</span></td></tr>
+
+        <tr class="warn-row"><td class="name" rowspan="2">ACTS</td><td>技術仕様</td><td>Super8ベンダー確認</td><td><strong>5/16</strong></td></tr>
+        <tr><td>コンテンツ</td><td>9商品×4回分文面・LP設計</td><td><span class="badge badge-info">未着手</span></td></tr>
+
+        <tr><td class="name" rowspan="3">費用<br>F章</td><td>原価分解</td><td>売上原価の事業別分解</td><td><span class="badge badge-danger">I-14</span></td></tr>
+        <tr><td>物流</td><td>物流費計上ロジック確認</td><td><span class="badge badge-danger">I-13</span></td></tr>
+        <tr><td>促銷費</td><td>「-----」表記4件の内容確認</td><td><span class="badge badge-danger">A-2</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="good">
+      <strong>経営幹部への最後のメッセージ：</strong><br>
+      この一覧の中で<strong>「自処が責任を負うID」を最低3つ</strong>選び、各処の月次レビュー議題に組み込んでください。<strong>「理想 ↔ 現状 ↔ GAP」のフレーム</strong>を使って、自分の言葉で部下に伝えるところから組織が変わり始めます。
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>FY25 経営コンテキスト大全 v1 / 2026-05-10　ベネッセ台北支社　経営幹部向け</span>
+    <span>本書は経営判断の参照軸として使用してください。誤り・指摘は最大限に評価します。</span>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+function toggleDept(header){
+  const body=header.nextElementSibling;
+  const ch=header.querySelector('.chevron');
+  const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  ch.classList.toggle('open',!open);
+}
+function toggleMember(card){card.classList.toggle('expanded');}
+
+function showPage(id, el) {
+  document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  var target = document.getElementById(id);
+  if (target) target.classList.add('active');
+  if (el) el.classList.add('active');
+  window.scrollTo(0,0);
+  if (window.renderCharts) window.renderCharts(id);
+}
+
+// ─── Chart.js 共通設定 ───
+const COLOR = {
+  orange:'#CF6A2E', blue:'#2A6496', green:'#2D6A4F',
+  yellow:'#C8990A', red:'#8B2E2E', purple:'#5E4B8B',
+  ink:'#1A1916', muted:'#9B9890', border:'#DDD8CE',
+};
+const CHART_DEFAULTS = {
+  font:{family:"'Noto Sans JP',sans-serif",size:11},
+  color:COLOR.ink,
+};
+if (window.Chart) {
+  Chart.defaults.font.family = CHART_DEFAULTS.font.family;
+  Chart.defaults.font.size = CHART_DEFAULTS.font.size;
+  Chart.defaults.color = COLOR.ink;
+  Chart.defaults.borderColor = COLOR.border;
+}
+
+const _chartInstances = {};
+function destroyChart(id){
+  if(_chartInstances[id]){_chartInstances[id].destroy();delete _chartInstances[id];}
+}
+
+function chart_0_02(){
+  destroyChart('chart-0-02');
+  const ctx=document.getElementById('chart-0-02');if(!ctx)return;
+
+  // ウォーターフォール：[label, value, type, color]
+  // type: 'gain'(増分・緑) / 'loss'(減分・赤) / 'subtotal'(中間累計・濃) / 'total'(終値・赤強) / 'minor'(微増減・薄)
+  const items = [
+    ['學習商品 OP',         +27.3,'gain'],
+    ['舞台劇 OP',           +27.7,'gain'],
+    ['授権金 OP',           +20.3,'gain'],
+    ['周邊商品 OP',          +5.3,'gain'],
+    ['Mirafeel OP',          +0.3,'gain'],
+    ['數位経典 OP',          -0.5,'loss'],
+    ['YT・他 OP',            +1.3,'gain'],
+    ['その他',               +7.2,'minor'],   // 案Bの調整分（薄色で目立たせず）
+    ['事業利益 小計',        88.9,'subtotal'],
+    ['共通人件費',          -46.6,'loss'],
+    ['共通一般管理費',      -28.0,'loss'],
+    ['共通販売費',          -24.6,'loss'],
+    ['営業利益',            -10.3,'total'],
+  ];
+
+  // 累計計算（subtotal/totalは絶対値、それ以外は加算）
+  let cum=0;
+  const bases=[],values=[],colors=[],borderColors=[];
+  const labels=items.map(it=>it[0]);
+  const labelVals=[];
+
+  const C = {
+    gain:'#2D6A4F',
+    loss:'#8B2E2E',
+    subtotal:'#1A1916',
+    total:'#8B2E2E',
+    minor:'#C8C2B6',
+  };
+
+  items.forEach(it=>{
+    const [name,val,type] = it;
+    if(type==='subtotal' || type==='total'){
+      // 累計をリセット位置として表示。バーは0からval(累計値)まで。
+      bases.push(0);
+      values.push(val);
+      cum = val;
+      labelVals.push(val);
+    } else if(val >= 0){
+      bases.push(cum);
+      values.push(val);
+      cum += val;
+      labelVals.push(val);
+    } else {
+      // 負値：base = cum + val（=次の値）, value = -val（正の高さ）
+      bases.push(cum + val);
+      values.push(-val);
+      cum += val;
+      labelVals.push(val);
+    }
+    colors.push(C[type]);
+    borderColors.push(C[type]);
+  });
+
+  _chartInstances['chart-0-02']=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:labels,
+      datasets:[
+        {label:'base',data:bases,backgroundColor:'rgba(0,0,0,0)',borderWidth:0,stack:'wf'},
+        {label:'値',data:values,backgroundColor:colors,borderColor:borderColors,borderWidth:0,stack:'wf'},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          callbacks:{
+            label:(c)=>{
+              if(c.dataset.label==='base') return null;
+              const idx=c.dataIndex;
+              const v=labelVals[idx];
+              const sign = v>=0?'+':'';
+              return `${labels[idx]}: ${sign}${v.toFixed(1)}M`;
+            },
+            title:(items)=>items[0].label
+          }
+        },
+      },
+      scales:{
+        x:{stacked:true,
+           ticks:{font:{size:9.5},maxRotation:55,minRotation:45,autoSkip:false},
+           grid:{display:false}},
+        y:{stacked:true,
+           title:{display:true,text:'百万NTD（売上181.1Mはタイトル参照）',font:{size:10}},
+           grid:{color:'#EFEAE0'},
+           ticks:{font:{size:10}}},
+      },
+      animation:{duration:600},
+      // データラベル（ピンポイント）：Chart.jsのafterDatasetsDrawフック
+    },
+    plugins:[{
+      id:'datalabel',
+      afterDatasetsDraw(chart){
+        const {ctx,scales:{x,y}} = chart;
+        ctx.save();
+        ctx.font='600 10px "Geist Mono", monospace';
+        ctx.textAlign='center';
+        ctx.textBaseline='bottom';
+        const ds = chart.data.datasets[1];
+        ds.data.forEach((val,i)=>{
+          if(val===0)return;
+          const v = labelVals[i];
+          const type = items[i][2];
+          const xPos = x.getPixelForValue(i);
+          const baseEnd = bases[i] + values[i];
+          // 値ラベルはバーの上(正)or下(負)端に配置
+          const isPositiveBar = v>=0;
+          const top = y.getPixelForValue(Math.max(bases[i], baseEnd));
+          const bottom = y.getPixelForValue(Math.min(bases[i], baseEnd));
+          const sign = v>=0?'+':'';
+          const txt = type==='subtotal'||type==='total' ? `${v.toFixed(1)}` : `${sign}${v.toFixed(1)}`;
+          ctx.fillStyle = (type==='subtotal'||type==='total') ? '#1A1916' : (v>=0?'#2D6A4F':'#8B2E2E');
+          if(type==='minor') ctx.fillStyle='#9B9890';
+          ctx.fillText(txt, xPos, top - 3);
+        });
+        ctx.restore();
+      }
+    }]
+  });
+}
+
+function chart_P_02(){
+  destroyChart('chart-P-02');
+  const ctx=document.getElementById('chart-P-02');if(!ctx)return;
+  _chartInstances['chart-P-02']=new Chart(ctx,{
+    type:'doughnut',
+    data:{
+      labels:['大型舞台劇 84.2%','音楽劇 9.3%','英語劇 5.9%','耶誕特別 0.6%'],
+      datasets:[{
+        data:[52.0,5.7,3.7,0.4],
+        backgroundColor:[COLOR.blue,COLOR.orange,COLOR.green,COLOR.yellow],
+        borderWidth:2,borderColor:'#FFFDF9'
+      }]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'right',labels:{boxWidth:12,padding:10,font:{size:11}}}}}
+  });
+}
+
+function chart_F_02(){
+  destroyChart('chart-F-02');
+  const ctx=document.getElementById('chart-F-02');if(!ctx)return;
+  _chartInstances['chart-F-02']=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:['學習','周邊','Mirafeel','數位経典','舞台劇','授権金','他YT','共通費'],
+      datasets:[
+        {label:'委託',data:[0.7,0.6,0.1,1.9,0.5,0.0,0.8,15.3],backgroundColor:COLOR.blue},
+        {label:'廣告',data:[3.1,0.9,0.3,4.4,0.6,0.0,0.3,2.5],backgroundColor:COLOR.orange},
+        {label:'促銷',data:[2.1,0.3,0.1,0.0,1.2,0.0,0.0,5.4],backgroundColor:COLOR.yellow},
+        {label:'佣金',data:[1.9,0.0,0.0,1.1,0.1,3.5,0.0,0.0],backgroundColor:COLOR.green},
+        {label:'運送',data:[1.1,3.0,0.1,0.0,0.3,0.1,0.0,0.2],backgroundColor:COLOR.purple},
+        {label:'他',data:[0.2,0.1,0.1,0.1,0.5,0.3,0.1,1.2],backgroundColor:COLOR.muted},
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:10}}},
+      scales:{x:{stacked:true},y:{stacked:true,title:{display:true,text:'百万NTD',font:{size:10}}}}
+    }
+  });
+}
+
+function chart_L_00(){
+  destroyChart('chart-L-00');
+  const ctx=document.getElementById('chart-L-00');if(!ctx)return;
+  _chartInstances['chart-L-00']=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:['A1孕期','S1 (0-6M)','SS (7-12M)','S2 (13-24M)','AA (25-36M)','A2 (37-60M)','B (61M+)'],
+      datasets:[
+        {label:'現状BCL保有率',
+         data:[3.1,7.9,6.6,10.1,10.6,19.5,15.6],
+         backgroundColor:[COLOR.red,COLOR.red,COLOR.red,COLOR.yellow,COLOR.yellow,COLOR.green,COLOR.muted]},
+      ]
+    },
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{afterLabel:c=>['月刊時代参考：0歳40%・2歳60%・5歳90%'][0]}}},
+      scales:{x:{beginAtZero:true,max:25,title:{display:true,text:'保有率（%）',font:{size:10}}}}
+    }
+  });
+}
+
+function chart_T_02(){
+  destroyChart('chart-T-02');
+  const ctx=document.getElementById('chart-T-02');if(!ctx)return;
+  _chartInstances['chart-T-02']=new Chart(ctx,{
+    type:'line',
+    data:{
+      labels:['2504','2505','2506','2510','2601','2603'],
+      datasets:[{
+        label:'TEL応答率（%）',
+        data:[5.76,12.86,8.74,7.30,5.70,5.82],
+        borderColor:COLOR.orange,backgroundColor:COLOR.orange+'33',
+        fill:true,tension:0.3,pointRadius:5,pointBackgroundColor:COLOR.orange
+      }]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{y:{beginAtZero:true,title:{display:true,text:'応答率（%）',font:{size:10}}}}
+    }
+  });
+}
+
+window.renderCharts = function(id){
+  setTimeout(()=>{
+    if(id==='0-02')chart_0_02();
+    if(id==='P-02')chart_P_02();
+    if(id==='F-02')chart_F_02();
+    if(id==='L-00')chart_L_00();
+    if(id==='T-02')chart_T_02();
+  },50);
+};
+// 初回ロード時：activeページのチャートを描画
+document.addEventListener('DOMContentLoaded',()=>{
+  const active=document.querySelector('.page-content.active');
+  if(active)window.renderCharts(active.id);
+});
+</script>
+</body>
+</html>
